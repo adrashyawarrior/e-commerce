@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
@@ -31,6 +31,12 @@ const Login = () => {
         });
         return response.json();
     }
+
+    useEffect(() => {
+        const authUser = localStorage.getItem('user');
+        if (authUser)
+            navigate('/');
+    });
 
     return (
         <div className='m-16 p-16 w-1/2 bg-gray-100'>
