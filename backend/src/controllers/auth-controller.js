@@ -8,7 +8,10 @@ async function login(req, res) {
         if (user && user.password == req.body.password) {
             res.send({
                 success: true,
-                data: user,
+                data: {
+                    name: user.name,
+                    email: user.email
+                },
                 message: 'You have loggedin Successfully.'
             });
         } else {
