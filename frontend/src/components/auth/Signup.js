@@ -1,14 +1,34 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
-
+    const navigate = useNavigate();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
-        console.log(name, email, password);
+        const user = {
+            name: name,
+            email: email,
+            password: password
+        };
+        const response = await register('http://localhost:4000/users', user);
+        console.log(response);
+        navigate('/');
     }
+
+    async function register(url = '', data = {}) {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        return response.json();
+    }
+
     return (
         <div className='m-16 p-16 w-1/2 bg-gray-100'>
             <h1 className='pb-4 mb-4 border-b-2 text-3xl bold'>Register</h1>
