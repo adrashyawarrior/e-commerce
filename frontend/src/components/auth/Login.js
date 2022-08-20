@@ -1,24 +1,27 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Signup = () => {
+const Login = () => {
     const navigate = useNavigate();
-    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const submit = async (e) => {
         e.preventDefault();
         const user = {
-            name: name,
             email: email,
             password: password
         };
-        const response = await register('http://localhost:4000/users', user);
-        localStorage.setItem('user', JSON.stringify(response.data));
-        navigate('/');
+        const response = await login('http://localhost:4000/login', user);
+        if (response.success) {
+            localStorage.setItem('user', JSON.stringify(response.data));
+            navigate('/');
+        } else {
+            navigate('/login');
+            alert('Oops! Wrong Email or Password.')
+        }
     }
 
-    async function register(url = '', data = {}) {
+    async function login(url = '', data = {}) {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -31,14 +34,8 @@ const Signup = () => {
 
     return (
         <div className='m-16 p-16 w-1/2 bg-gray-100'>
-            <h1 className='pb-4 mb-4 border-b-2 text-3xl bold'>Register</h1>
+            <h1 className='pb-4 mb-4 border-b-2 text-3xl bold'>Login</h1>
             <form>
-                <div className="mb-6">
-                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full Name</label>
-                    <input type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Robert Junior" required=""
-                        value={name} onChange={(e) => { setName(e.target.value) }}
-                    />
-                </div>
                 <div className="mb-6">
                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
                     <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required=""
@@ -59,11 +56,11 @@ const Signup = () => {
                 </div>
                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     onClick={submit}
-                >Submit</button>
+                >Login</button>
             </form>
 
         </div>
     )
 }
 
-export default Signup
+export default Login
