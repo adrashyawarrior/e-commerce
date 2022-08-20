@@ -33,8 +33,8 @@ const Login = () => {
     }
 
     useEffect(() => {
-        const authUser = localStorage.getItem('user');
-        if (authUser)
+        const auth = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : false;
+        if (auth)
             navigate('/');
     });
 
