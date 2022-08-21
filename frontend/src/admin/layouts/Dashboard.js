@@ -7,15 +7,15 @@ const Dashboard = ({ children }) => {
     if (auth)
         return (
             <div className='w-full block'>
-                <div className='w-full block'>
-                    <Navbar />
-                </div>
-                <div className='w-full block'>
-                    <div className='w-1/5 inline-block'>
+                <div className='w-full flex flex-row'>
+                    <div className='w-1/6 inline-block'>
                         <Sidebar />
                     </div>
-                    <main className='w-4/5 inline-block'>
-                        {children}
+                    <main className='w-5/6 flex flex-col'>
+                        <Navbar />
+                        <div className='p-2'>
+                            {children}
+                        </div>
                     </main>
                 </div>
             </div>

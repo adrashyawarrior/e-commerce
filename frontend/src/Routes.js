@@ -1,4 +1,6 @@
 import Logout from './admin/components/auth/Logout'
+import UserIndex from './admin/components/users/UserIndex';
+
 
 const protectedRoutes = [
     {
@@ -11,7 +13,7 @@ const protectedRoutes = [
     },
     {
         path: "/users",
-        element: <h1>Users</h1>,
+        element: <UserIndex />,
     },
     {
         path: "/logout",
