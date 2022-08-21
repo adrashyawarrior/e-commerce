@@ -1,11 +1,11 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import Login from './components/auth/Login';
+import Login from './admin/components/auth/Login';
 import protectedRoutes from './Routes';
 
-import AuthenticatedComponents from './components/auth/AuthenticatedComponents';
-import Dashboard from './layouts/Dashboard';
+import AuthenticatedComponents from './admin/components/auth/AuthenticatedComponents';
+import Dashboard from './admin/layouts/Dashboard';
 
 function App() {
   return (

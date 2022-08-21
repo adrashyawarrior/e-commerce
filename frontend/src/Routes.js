@@ -1,4 +1,4 @@
-import Logout from './components/auth/Logout'
+import Logout from './admin/components/auth/Logout'
 
 const protectedRoutes = [
     {
