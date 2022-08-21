@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './admin/components/auth/Login';
 import protectedRoutes from './Routes';
 
-import AuthenticatedComponents from './admin/components/auth/AuthenticatedComponents';
+import RequireAuth from './admin/components/auth/RequireAuth';
 import Dashboard from './admin/layouts/Dashboard';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route element={<AuthenticatedComponents />}>
+          <Route element={<RequireAuth />}>
             {protectedRoutes.map((item, i) => {
               return (
                 <Route key={"route-" + i} path={item.path} element={<Dashboard>{item.element}</Dashboard>} />

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
-const AuthenticatedComponents = () => {
+const RequireAuth = () => {
     const auth = localStorage.getItem('user');
     return (auth ? <Outlet /> : <Navigate to="/login" />)
 }
 
-export default AuthenticatedComponents
+export default RequireAuth
