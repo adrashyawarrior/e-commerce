@@ -2,13 +2,12 @@ import _axios from 'axios'
 
 export default class Http {
     static axios = _axios.create({
-        baseUrl: 'http://localhost:4000/',
+        baseURL: 'http://localhost:4000/',
     });
 
     static async get(url) {
         try {
             const response = await Http.axios.get(url);
-            console.warn(response.data);
             if (response) { return response.data; }
         } catch (error) {
             Http.handleErrors(error);

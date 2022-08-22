@@ -1,16 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import UserService from '../../../services/UserService';
 
 const UserIndex = () => {
-    const baseURL = "http://localhost:4000/users";
     const [users, setUsers] = React.useState([]);
 
     React.useEffect(() => {
-        axios.get(baseURL).then((response) => {
-            setUsers(response.data);
-            console.log(users);
+        UserService.getUsers().then((response) => {
+            setUsers(response);
+        }).catch((error) => {
+            console.log(error);
         });
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
