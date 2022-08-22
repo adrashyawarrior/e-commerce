@@ -3,6 +3,9 @@ import _axios from 'axios'
 export default class Http {
     static axios = _axios.create({
         baseURL: 'http://localhost:4000/',
+        headers: {
+            'Content-Type': 'application/json'
+        },
     });
 
     static async get(url) {

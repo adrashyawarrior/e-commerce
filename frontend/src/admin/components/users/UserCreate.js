@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import UserService from '../../../services/UserService';
 
 const UserCreate = () => {
     const navigate = useNavigate();
@@ -8,25 +9,14 @@ const UserCreate = () => {
     const [password, setPassword] = useState("");
     const submit = async (e) => {
         e.preventDefault();
-        const user = {
+        const data = {
             name: name,
             email: email,
             password: password
         };
-        const response = await register('http://localhost:4000/users', user);
-        localStorage.setItem('user', JSON.stringify(response.data));
+        const user = await UserService.createUser(data);
+        console.log(user);
         navigate('/users');
-    }
-
-    async function register(url = '', data = {}) {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-        return response.json();
     }
 
     return (
