@@ -1,4 +1,6 @@
+require('dotenv').config()
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
 
 async function login(req, res) {
     try {
@@ -6,11 +8,13 @@ async function login(req, res) {
             email: req.body.email
         });
         if (user && user.password == req.body.password) {
+            const accessToken = jwt.sign({ email: user.email }, process.env.ACCESS_TOKEN_KEY);
             res.send({
                 success: true,
                 data: {
                     name: user.name,
-                    email: user.email
+                    email: user.email,
+                    accessToken: accessToken,
                 },
                 message: 'You have loggedin Successfully.'
             });

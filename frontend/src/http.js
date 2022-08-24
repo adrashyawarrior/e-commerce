@@ -4,7 +4,8 @@ export default class Http {
     static axios = _axios.create({
         baseURL: 'http://localhost:4000/',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + (localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).accessToken : '')
         },
     });
 
