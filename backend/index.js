@@ -12,6 +12,8 @@ const app = express()
 app.use(cors());
 
 app.use('/uploads', express.static('uploads'));
+app.use('/public/images', express.static('public/images'));
+
 app.use(routes);
 
 app.listen(4000);

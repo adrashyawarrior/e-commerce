@@ -16,7 +16,7 @@ async function create(req, res) {
             name: req.body.name,
             price: req.body.price,
             stock: req.body.stock,
-            image: 'uploads/' + req.file.filename
+            image: req.file !== undefined ? 'uploads/' + req.file.filename : 'public/images/default-product.png'
         };
         const product = await Product.create(input);
         const data = {
