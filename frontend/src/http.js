@@ -29,6 +29,16 @@ export default class Http {
         }
     }
 
+    static async delete(url) {
+        try {
+            const response = await Http.axios.delete(url);
+            if (response) { return response.data; }
+        } catch (error) {
+            Http.handleErrors(error);
+            return Promise.reject(error);
+        }
+    }
+
     static handleErrors(error) {
         let errorMessage = 'Something went wrong.';
         if (error.response) {
@@ -36,4 +46,5 @@ export default class Http {
         }
         console.log(errorMessage);
     }
+
 }

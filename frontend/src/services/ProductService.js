@@ -8,4 +8,8 @@ export default class ProductService {
     static createProduct(data) {
         return Http.post('products', data);
     }
+
+    static deleteProduct(id) {
+        return Http.delete('products/' + id);
+    }
 }

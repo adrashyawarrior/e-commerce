@@ -35,7 +35,26 @@ async function create(req, res) {
     }
 }
 
+async function destroy(req, res) {
+    try {
+        const product = await Product.findByIdAndDelete(req.params.id);
+        const data = {
+            success: true,
+            data: product,
+            message: 'Product deleted succesfully.'
+        };
+        res.send(data);
+    } catch (error) {
+        const data = {
+            success: false,
+            data: error,
+            message: 'Something Went Wrong.'
+        };
+        res.send(data);
+    }
+}
+
 
 module.exports = {
-    index, create
+    index, create, destroy
 };

@@ -11,9 +11,13 @@ const ProductIndex = () => {
         }).catch((error) => {
             console.log(error);
         });
-
+        console.log('ok');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    function deleteProduct(id) {
+        ProductService.deleteProduct(id);
+    }
 
     return (
         <div className='p-8'>
@@ -66,6 +70,9 @@ const ProductIndex = () => {
                             <th scope="col" className="py-3 px-6">
                                 <span className="sr-only">Edit</span>
                             </th>
+                            <th scope="col" className="py-3 px-6">
+                                <span className="sr-only">Delete</span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,6 +94,9 @@ const ProductIndex = () => {
                                         </td>
                                         <td className="py-4 px-6 text-right">
                                             <Link to="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
+                                        </td>
+                                        <td className="py-4 px-6 text-right">
+                                            <Link to="#" onClick={() => { deleteProduct(product._id) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</Link>
                                         </td>
                                     </tr>
                                 )
