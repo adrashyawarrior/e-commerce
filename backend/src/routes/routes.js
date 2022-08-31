@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const authRoutes = require('./auth-routes')
 const errorRoutes = require('./error-routes')
 const userRoutes = require('./user-routes')
+const productRoutes = require('./product-routes')
 
 const router = express.Router();
 
@@ -22,7 +23,8 @@ function authenticateToken(req, res, next) {
 router.use(express.json());
 
 router.use('', authRoutes);
-router.use('/users', authenticateToken,userRoutes);
+router.use('/users', authenticateToken, userRoutes);
+router.use('/products', productRoutes);
 router.use('*', errorRoutes);
 
 module.exports = router;
