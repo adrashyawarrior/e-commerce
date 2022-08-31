@@ -10,6 +10,8 @@ mongoose.connect(process.env.DB_URL);
 const app = express()
 
 app.use(cors());
+
+app.use('/uploads', express.static('uploads'));
 app.use(routes);
 
 app.listen(4000);

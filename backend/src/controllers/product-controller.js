@@ -16,7 +16,7 @@ async function create(req, res) {
             name: req.body.name,
             price: req.body.price,
             stock: req.body.stock,
-            image: 'uploads/' + req.file.originalname
+            image: 'uploads/' + req.file.filename
         };
         const product = await Product.create(input);
         const data = {

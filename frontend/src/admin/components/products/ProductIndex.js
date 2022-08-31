@@ -81,6 +81,7 @@ const ProductIndex = () => {
                                 return (
                                     <tr key={`product-${i}`} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <img className='w-16' alt='product-image' src={'http://localhost:4000/' + product.image} />
                                             {product.name}
                                         </th>
                                         <td className="py-4 px-6">
