@@ -5,9 +5,6 @@ import Pagination from '../../layouts/Pagination';
 
 const UserIndex = () => {
     const [users, setUsers] = React.useState([]);
-    const [page, setPage] = React.useState(1);
-    const [perPage, setPerPage] = React.useState(5);
-
     React.useEffect(() => {
         UserService.getUsers().then((response) => {
             setUsers(response);
@@ -98,7 +95,11 @@ const UserIndex = () => {
                     </tbody>
                 </table>
             </div>
-            <Pagination />
+            <Pagination
+                url="/users"
+                perPage={10}
+                currentPage={1}
+            />
         </div>
     )
 }

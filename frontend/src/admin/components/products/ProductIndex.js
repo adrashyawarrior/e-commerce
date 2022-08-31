@@ -6,10 +6,15 @@ import Pagination from '../../layouts/Pagination';
 const ProductIndex = () => {
     const [products, setProducts] = React.useState([]);
     const [refetch, setRefetch] = React.useState(new Date());
-
+    const [page, setPage] = React.useState(1);
+    const [perPage, setPerPage] = React.useState(3);
+    const [total, setTotal] = React.useState(0);
     React.useEffect(() => {
         ProductService.getProducts().then((response) => {
-            setProducts(response);
+            setProducts(response.products);
+            setTotal(response.total);
+            setPage(response.currentPage);
+            setPerPage(response.perPage);
         }).catch((error) => {
             console.log(error);
         });
@@ -81,7 +86,7 @@ const ProductIndex = () => {
                                 return (
                                     <tr key={`product-${i}`} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row" className="py-2 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <img className='w-16' alt='product-image' src={'http://localhost:4000/' + product.image} />
+                                            <img className='w-16' alt='' src={'http://localhost:4000/' + product.image} />
                                         </th>
                                         <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {product.name}
@@ -115,7 +120,12 @@ const ProductIndex = () => {
                     </tbody>
                 </table>
             </div>
-            <Pagination />
+            <Pagination
+                url="/products"
+                perPage={perPage}
+                currentPage={page}
+                total={total}
+            />
         </div>
     )
 }

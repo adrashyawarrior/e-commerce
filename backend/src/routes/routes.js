@@ -24,7 +24,7 @@ router.use(express.json());
 
 router.use('', authRoutes);
 router.use('/users', authenticateToken, userRoutes);
-router.use('/products', productRoutes);
+router.use('/products*', productRoutes);
 router.use('*', errorRoutes);
 
 module.exports = router;
