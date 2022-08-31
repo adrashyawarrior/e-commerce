@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import ProductService from '../../../services/ProductService';
+import Pagination from '../../layouts/Pagination';
 
 const ProductIndex = () => {
     const [products, setProducts] = React.useState([]);
@@ -44,7 +45,7 @@ const ProductIndex = () => {
                     </Link>
                 </div>
             </div>
-            <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+            <div className="overflow-x-auto relative shadow-md sm:rounded-lg mb-6">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -114,6 +115,7 @@ const ProductIndex = () => {
                     </tbody>
                 </table>
             </div>
+            <Pagination />
         </div>
     )
 }

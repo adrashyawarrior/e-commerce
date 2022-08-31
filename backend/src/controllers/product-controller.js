@@ -2,7 +2,10 @@ const Product = require('../models/product')
 
 async function index(req, res) {
     try {
-        const products = await Product.find();
+        const currentPage = req.query.page || 1;
+        const perPage = req.query.perPage || 5;
+        let total = await Product.find().countDocuments();
+        const products = await Product.find().skip((currentPage - 1) * perPage).limit(perPage);
         res.send(products);
     } catch (error) {
         res.send(error);

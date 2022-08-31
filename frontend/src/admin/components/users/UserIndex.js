@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import UserService from '../../../services/UserService';
+import Pagination from '../../layouts/Pagination';
 
 const UserIndex = () => {
     const [users, setUsers] = React.useState([]);
+    const [page, setPage] = React.useState(1);
+    const [perPage, setPerPage] = React.useState(5);
 
     React.useEffect(() => {
         UserService.getUsers().then((response) => {
@@ -38,7 +41,7 @@ const UserIndex = () => {
                     </Link>
                 </div>
             </div>
-            <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+            <div className="overflow-x-auto relative shadow-md sm:rounded-lg mb-6">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -95,6 +98,7 @@ const UserIndex = () => {
                     </tbody>
                 </table>
             </div>
+            <Pagination />
         </div>
     )
 }
