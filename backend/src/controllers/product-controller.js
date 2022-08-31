@@ -11,7 +11,14 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
-        const product = await Product.create(req.body);
+
+        const input = {
+            name: req.body.name,
+            price: req.body.price,
+            stock: req.body.stock,
+            image: 'uploads/' + req.file.originalname
+        };
+        const product = await Product.create(input);
         const data = {
             success: true,
             data: product,
@@ -27,6 +34,7 @@ async function create(req, res) {
         res.send(data);
     }
 }
+
 
 module.exports = {
     index, create

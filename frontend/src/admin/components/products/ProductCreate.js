@@ -10,23 +10,21 @@ const ProductCreate = () => {
     const [image, setImage] = useState("");
     const submit = async (e) => {
         e.preventDefault();
-        const data = {
-            name: name,
-            price: price,
-            stock: stock,
-            image: image
-        };
-        const product = await ProductService.createProduct(data);
-        console.log(product);
+        let formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('stock', stock);
+        formData.append('image', image);
+        await ProductService.createProduct(formData);
         navigate('/products');
     }
 
     return (
         <div className='m-8 p-16 rounded-xl bg-gray-100'>
-            <h1 className='pb-4 mb-4 border-b-2 text-3xl bold'>Add New User</h1>
+            <h1 className='pb-4 mb-4 border-b-2 text-3xl bold'>Add New Product</h1>
             <form>
                 <div className="mb-6">
-                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full Name</label>
+                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Product Name</label>
                     <input type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Robert Junior" required=""
                         value={name} onChange={(e) => { setName(e.target.value) }}
                     />
@@ -38,15 +36,15 @@ const ProductCreate = () => {
                     />
                 </div>
                 <div className="mb-6">
-                    <label htmlFor="stock" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Price</label>
+                    <label htmlFor="stock" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Stock</label>
                     <input type="number" id="stock" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required=""
                         value={stock} onChange={(e) => { setStock(e.target.value) }}
                     />
                 </div>
                 <div className="mb-6">
-                    <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full Name</label>
-                    <input type="text" id="image" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Robert Junior" required=""
-                        value={image} onChange={(e) => { setImage(e.target.value) }}
+                    <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Image</label>
+                    <input type="file" name='image' id="image" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Robert Junior" required=""
+                        onChange={(e) => { setImage(e.target.files[0]) }}
                     />
                 </div>
                 <div className="flex items-start mb-6">
