@@ -7,7 +7,7 @@ const UserIndex = () => {
     const [users, setUsers] = React.useState([]);
     const [refetch, setRefetch] = React.useState(new Date());
     const [currentPage, setCurrentPage] = React.useState(1);
-    const [perPage, setPerPage] = React.useState(7);
+    const [perPage, setPerPage] = React.useState(10);
     const [total, setTotal] = React.useState(0);
 
     React.useEffect(() => {
