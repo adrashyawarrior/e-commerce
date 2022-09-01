@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import LOGO from '../../storage/images/logo.png'
 
 const Sidebar = () => {
     return (
@@ -8,9 +9,8 @@ const Sidebar = () => {
                 <div className="overflow-y-auto py-4 px-3 h-screen bg-gray-200 dark:bg-gray-800">
                     <ul className="space-y-2">
                         <li className='pb-8 px-4'>
-                            <a href="https://flowbite.com/" className="flex items-center">
-                                <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
-                                <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+                            <a href="/" className="flex items-center">
+                                <img src={LOGO} className="mr-3 h-16 sm:h-16" alt="Flowbite Logo" />
                             </a>
                         </li>
                         <li>
