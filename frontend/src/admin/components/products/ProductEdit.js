@@ -40,7 +40,7 @@ const ProductEdit = () => {
     useEffect(() => {
         if (file) {
             if (!file.type.match(/image\/(png|jpg|jpeg)/i)) {
-                alert("Image mime type is not valid");
+                alert("Image type is not valid");
                 setImage();
             } else {
                 let fileReader = new FileReader();
