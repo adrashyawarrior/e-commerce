@@ -5,15 +5,28 @@ import Pagination from '../../layouts/Pagination';
 
 const UserIndex = () => {
     const [users, setUsers] = React.useState([]);
+    // const [refetch, setRefetch] = React.useState(new Date());
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [perPage, setPerPage] = React.useState(7);
+    const [total, setTotal] = React.useState(0);
+
     React.useEffect(() => {
-        UserService.getUsers().then((response) => {
-            setUsers(response);
+        UserService.getUsers(`?perPage=${perPage}&page=${currentPage}`).then((response) => {
+            setUsers(response.users);
+            setTotal(response.total);
+            setCurrentPage(response.currentPage);
+            setPerPage(response.perPage);
         }).catch((error) => {
             console.log(error);
         });
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [currentPage, perPage]);
+
+    function handlePagination(data) {
+        setCurrentPage(data.currentPage);
+        setPerPage(data.perPage);
+    }
 
     return (
         <div className='p-8'>
@@ -96,9 +109,10 @@ const UserIndex = () => {
                 </table>
             </div>
             <Pagination
-                url="/users"
-                perPage={10}
-                currentPage={1}
+                perPage={perPage}
+                currentPage={currentPage}
+                total={total}
+                onPaginationChange={handlePagination}
             />
         </div>
     )

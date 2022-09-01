@@ -1,8 +1,8 @@
 import Http from "../http";
 
 export default class UserService {
-    static getUsers() {
-        return Http.get('users');
+    static getUsers(query = "") {
+        return Http.get('users' + query);
     }
 
     static createUser(data) {

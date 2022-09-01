@@ -6,21 +6,21 @@ import Pagination from '../../layouts/Pagination';
 const ProductIndex = () => {
     const [products, setProducts] = React.useState([]);
     const [refetch, setRefetch] = React.useState(new Date());
-    const [page, setPage] = React.useState(1);
+    const [currentPage, setCurrentPage] = React.useState(1);
     const [perPage, setPerPage] = React.useState(7);
     const [total, setTotal] = React.useState(0);
 
     React.useEffect(() => {
-        ProductService.getProducts(`?perPage=${perPage}&page=${page}`).then((response) => {
+        ProductService.getProducts(`?perPage=${perPage}&page=${currentPage}`).then((response) => {
             setProducts(response.products);
             setTotal(response.total);
-            setPage(response.currentPage);
+            setCurrentPage(response.currentPage);
             setPerPage(response.perPage);
         }).catch((error) => {
             console.log(error);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refetch, page, perPage]);
+    }, [refetch, currentPage, perPage]);
 
     async function deleteProduct(id) {
         await ProductService.deleteProduct(id);
@@ -28,7 +28,7 @@ const ProductIndex = () => {
     }
 
     function handlePagination(data) {
-        setPage(data.page);
+        setCurrentPage(data.currentPage);
         setPerPage(data.perPage);
     }
 
@@ -127,7 +127,7 @@ const ProductIndex = () => {
             </div>
             <Pagination
                 perPage={perPage}
-                currentPage={page}
+                currentPage={currentPage}
                 total={total}
                 onPaginationChange={handlePagination}
             />

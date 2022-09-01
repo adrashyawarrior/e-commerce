@@ -32,15 +32,15 @@ const Pagination = ({
                 </span>
                 <ul className="inline-flex -space-x-px">
                     <li>
-                        <Link to={`#`} onClick={() => { handlePageChange({ page: prev, perPage: perPage }) }} className={"py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"}>Previous</Link>
+                        <Link to={`#`} onClick={() => { handlePageChange({ currentPage: prev, perPage: perPage }) }} className={"py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"}>Previous</Link>
                     </li>
                     {pages.map(function (value, item) {
                         return (<li key={'page-' + value}>
-                            <Link to={`#`} onClick={() => { handlePageChange({ page: value, perPage: perPage }) }} className={"py-2 px-3 leading-tight bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white " + (parseInt(currentPage) === value ? 'text-blue-500' : 'text-gray-500')}>{value}</Link>
+                            <Link to={`#`} onClick={() => { handlePageChange({ currentPage: value, perPage: perPage }) }} className={"py-2 px-3 leading-tight bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white " + (parseInt(currentPage) === value ? 'text-blue-500' : 'text-gray-500')}>{value}</Link>
                         </li>)
                     })}
                     <li>
-                        <Link to={`#`} onClick={() => { handlePageChange({ page: next, perPage: perPage }) }} className="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</Link>
+                        <Link to={`#`} onClick={() => { handlePageChange({ currentPage: next, perPage: perPage }) }} className="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</Link>
                     </li>
                 </ul>
             </nav>

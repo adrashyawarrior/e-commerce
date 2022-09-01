@@ -3,9 +3,10 @@ const Product = require('../models/product')
 async function index(req, res) {
     try {
         const currentPage = req.query.page || 1;
-        const perPage = req.query.perPage || 5;
-        let total = await Product.find().countDocuments();
-        const products = await Product.find().skip((currentPage - 1) * perPage).limit(perPage);
+        const perPage = req.query.perPage || 10;
+        const skip = (currentPage - 1) * perPage;
+        const total = await Product.find().countDocuments();
+        const products = await Product.find().skip(skip).limit(perPage);
         res.send({
             products: products,
             total: total,
