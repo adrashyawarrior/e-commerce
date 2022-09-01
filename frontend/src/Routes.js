@@ -5,12 +5,13 @@ import ProductIndex from './admin/components/products/ProductIndex';
 import UserCreate from './admin/components/users/UserCreate';
 import UserEdit from './admin/components/users/UserEdit';
 import UserIndex from './admin/components/users/UserIndex';
+import AdminDashboard from './admin/components/dashboards/AdminDashboard';
 
 const protectedRoutes = [
     // Main Routes ===================
     {
         path: "/",
-        element: <h1>Welcome User.</h1>,
+        element: <AdminDashboard />,
     },
 
     // Users Routes ===================
