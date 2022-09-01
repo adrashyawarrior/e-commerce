@@ -63,7 +63,16 @@ async function destroy(req, res) {
     }
 }
 
+async function edit(req, res) {
+    try {
+        const product = await Product.findById(req.params.id);
+        res.send(product);
+    } catch (error) {
+        res.send(error);
+    }
+}
+
 
 module.exports = {
-    index, create, destroy
+    index, create, destroy, edit
 };
