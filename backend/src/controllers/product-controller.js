@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 const Product = require('../models/product')
 
 async function index(req, res) {
@@ -78,7 +80,13 @@ async function update(req, res) {
         req.body.name ? product.name = req.body.name : null;
         req.body.price ? product.price = req.body.price : null;
         req.body.stock ? product.stock = req.body.stock : null;
-        req.file !== undefined ? product.image = 'uploads/' + req.file.filename : null;
+        if (req.file !== undefined) {
+            const oldImage = product.image;
+            if (oldImage !== 'public/images/default-product.png') {
+                fs.unlinkSync(oldImage);
+            }
+            product.image = 'uploads/' + req.file.filename;
+        }
         await product.save();
         const data = {
             success: true,
