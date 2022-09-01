@@ -73,7 +73,12 @@ async function destroy(req, res) {
 async function edit(req, res) {
     try {
         const user = await User.findById(req.params.id);
-        res.send(user);
+        const data = {
+            user: user,
+            statuses: ['Active', 'Inactive'],
+            roles: ['Employee', 'Admin'],
+        };
+        res.send(data);
     } catch (error) {
         res.send(error);
     }
