@@ -2,6 +2,10 @@ const User = require('../models/user')
 
 async function index(req, res) {
     try {
+        if (res.locals.AuthUser.role != 'Admin') {
+            res.status(401).send("Opps! Unauthorized Access.");
+        }
+        
         const currentPage = req.query.page || 1;
         const perPage = req.query.perPage || 10;
         const total = await User.find().countDocuments();
@@ -90,6 +94,7 @@ async function update(req, res) {
         req.body.name ? user.name = req.body.name : null;
         req.body.password ? user.password = req.body.password : null;
         req.body.email ? user.email = req.body.email : null;
+        req.body.role ? user.role = req.body.role : null;
         req.body.status ? user.status = req.body.status : null;
         await user.save();
         const data = {
