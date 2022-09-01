@@ -72,7 +72,31 @@ async function edit(req, res) {
     }
 }
 
+async function update(req, res) {
+    try {
+        const product = await Product.findById(req.params.id);
+        req.body.name ? product.name = req.body.name : null;
+        req.body.price ? product.price = req.body.price : null;
+        req.body.stock ? product.stock = req.body.stock : null;
+        req.file !== undefined ? product.image = 'uploads/' + req.file.filename : null;
+        await product.save();
+        const data = {
+            success: true,
+            data: product,
+            message: 'Product updated succesfully.'
+        };
+        res.send(data);
+    } catch (error) {
+        const data = {
+            success: false,
+            data: error,
+            message: 'Something Went Wrong.'
+        };
+        res.send(data);
+    }
+}
+
 
 module.exports = {
-    index, create, destroy, edit
+    index, create, destroy, edit, update
 };

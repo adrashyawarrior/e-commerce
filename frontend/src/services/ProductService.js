@@ -16,4 +16,8 @@ export default class ProductService {
     static editProduct(id) {
         return Http.get('products/' + id + '/edit');
     }
+
+    static updateProduct(id, data) {
+        return Http.put('products/' + id, data);
+    }
 }

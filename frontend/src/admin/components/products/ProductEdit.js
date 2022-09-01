@@ -24,7 +24,7 @@ const ProductEdit = () => {
             console.log(error);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [name]);
+    }, []);
 
     const submit = async (e) => {
         e.preventDefault();
@@ -33,7 +33,7 @@ const ProductEdit = () => {
         formData.append('price', price);
         formData.append('stock', stock);
         formData.append('image', file);
-        await ProductService.createProduct(formData);
+        await ProductService.updateProduct(id, formData);
         navigate('/products');
     }
 

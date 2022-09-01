@@ -29,6 +29,16 @@ export default class Http {
         }
     }
 
+    static async put(url, data) {
+        try {
+            const response = await Http.axios.put(url, data);
+            if (response) { return response.data; }
+        } catch (error) {
+            Http.handleErrors(error);
+            return Promise.reject(error);
+        }
+    }
+
     static async delete(url) {
         try {
             const response = await Http.axios.delete(url);
