@@ -4,20 +4,20 @@ async function index(req, res) {
     try {
         if (res.locals.AuthUser.role != 'Admin') {
             res.status(401).send("Opps! Unauthorized Access.");
+        } else {
+            const currentPage = req.query.page || 1;
+            const perPage = req.query.perPage || 10;
+            const total = await User.find().countDocuments();
+            const skip = (currentPage - 1) * perPage;
+            const users = await User.find().skip(skip).limit(perPage);
+            const data = {
+                users: users,
+                total: total,
+                currentPage: currentPage,
+                perPage: perPage
+            }
+            res.send(data);
         }
-        
-        const currentPage = req.query.page || 1;
-        const perPage = req.query.perPage || 10;
-        const total = await User.find().countDocuments();
-        const skip = (currentPage - 1) * perPage;
-        const users = await User.find().skip(skip).limit(perPage);
-        const data = {
-            users: users,
-            total: total,
-            currentPage: currentPage,
-            perPage: perPage
-        }
-        res.send(data);
     } catch (error) {
         res.send(error);
     }

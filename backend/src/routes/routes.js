@@ -5,12 +5,13 @@ const User = require('../models/user')
 
 const authRoutes = require('./auth-routes')
 const errorRoutes = require('./error-routes')
+const homeRoutes = require('./home-routes')
 const userRoutes = require('./user-routes')
 const productRoutes = require('./product-routes')
 
 const router = express.Router();
 
- function authenticateToken(req, res, next) {
+function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null) return res.status(401).send('Oops! Please Login first.');
@@ -25,6 +26,7 @@ const router = express.Router();
 router.use(express.json());
 
 router.use('', authRoutes);
+router.use('', authenticateToken, homeRoutes);
 router.use('/users', authenticateToken, userRoutes);
 router.use('/products', authenticateToken, productRoutes);
 router.use('*', errorRoutes);
