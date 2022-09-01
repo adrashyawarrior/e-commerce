@@ -6,7 +6,6 @@ import UserCreate from './admin/components/users/UserCreate';
 import UserEdit from './admin/components/users/UserEdit';
 import UserIndex from './admin/components/users/UserIndex';
 
-
 const protectedRoutes = [
     // Main Routes ===================
     {

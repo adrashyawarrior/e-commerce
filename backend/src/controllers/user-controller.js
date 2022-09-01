@@ -21,6 +21,18 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
+        const data = {
+            statuses: ['Active', 'Inactive'],
+            roles: ['Employee', 'Admin'],
+        };
+        res.send(data);
+    } catch (error) {
+        res.send(error);
+    }
+}
+
+async function store(req, res) {
+    try {
         let user = await User.create(req.body);
         const data = {
             success: true,
@@ -96,6 +108,7 @@ async function update(req, res) {
 module.exports = {
     index,
     create,
+    store,
     edit,
     update,
     destroy

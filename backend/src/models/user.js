@@ -18,8 +18,12 @@ const User = Schema({
     status: {
         type: String,
         enum: ['Active', 'Inactive', 'Suspended'],
-        default: 'Active',
-        required: true
+        default: 'Active'
+    },
+    role: {
+        type: String,
+        enum: ['Admin', 'Employee'],
+        default: 'Employee'
     }
 })
 

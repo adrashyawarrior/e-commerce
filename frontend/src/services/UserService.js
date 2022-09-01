@@ -5,7 +5,11 @@ export default class UserService {
         return Http.get('users' + query);
     }
 
-    static createUser(data) {
+    static createUser() {
+        return Http.get('users/create');
+    }
+
+    static storeUser(data) {
         return Http.post('users', data);
     }
 

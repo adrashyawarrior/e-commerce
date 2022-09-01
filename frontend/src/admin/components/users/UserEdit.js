@@ -29,7 +29,8 @@ const UserEdit = () => {
         await UserService.updateUser(id, {
             name: name,
             email: email,
-            password: password
+            password: password,
+            status: status
         });
         navigate('/users');
     }
