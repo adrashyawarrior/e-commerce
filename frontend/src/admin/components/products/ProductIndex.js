@@ -7,10 +7,11 @@ const ProductIndex = () => {
     const [products, setProducts] = React.useState([]);
     const [refetch, setRefetch] = React.useState(new Date());
     const [page, setPage] = React.useState(1);
-    const [perPage, setPerPage] = React.useState(3);
+    const [perPage, setPerPage] = React.useState(7);
     const [total, setTotal] = React.useState(0);
+
     React.useEffect(() => {
-        ProductService.getProducts().then((response) => {
+        ProductService.getProducts(`?perPage=${perPage}&page=${page}`).then((response) => {
             setProducts(response.products);
             setTotal(response.total);
             setPage(response.currentPage);
@@ -18,13 +19,17 @@ const ProductIndex = () => {
         }).catch((error) => {
             console.log(error);
         });
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refetch]);
+    }, [refetch, page, perPage]);
 
     async function deleteProduct(id) {
         await ProductService.deleteProduct(id);
         setRefetch(new Date());
+    }
+
+    function handlePagination(data) {
+        setPage(data.page);
+        setPerPage(data.perPage);
     }
 
     return (
@@ -121,10 +126,10 @@ const ProductIndex = () => {
                 </table>
             </div>
             <Pagination
-                url="/products"
                 perPage={perPage}
                 currentPage={page}
                 total={total}
+                onPaginationChange={handlePagination}
             />
         </div>
     )
