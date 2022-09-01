@@ -8,4 +8,8 @@ export default class UserService {
     static createUser(data) {
         return Http.post('users', data);
     }
+
+    static editUser(id) {
+        return Http.get('users/' + id + '/edit');
+    }
 }

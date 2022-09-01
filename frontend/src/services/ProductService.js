@@ -12,4 +12,8 @@ export default class ProductService {
     static deleteProduct(id) {
         return Http.delete('products/' + id);
     }
+
+    static editProduct(id) {
+        return Http.get('products/' + id + '/edit');
+    }
 }
