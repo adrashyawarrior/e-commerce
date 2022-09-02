@@ -9,6 +9,9 @@ const homeRoutes = require('./home-routes')
 const userRoutes = require('./user-routes')
 const productRoutes = require('./product-routes')
 
+// shop
+const shopProductRoutes = require('../routes/shop-product-routes')
+
 const router = express.Router();
 
 function authenticateToken(req, res, next) {
@@ -25,10 +28,16 @@ function authenticateToken(req, res, next) {
 
 router.use(express.json());
 
+// shop
+router.use('/products',shopProductRoutes);
+
+// account
 router.use('', authRoutes);
 router.use('', authenticateToken, homeRoutes);
 router.use('/users', authenticateToken, userRoutes);
 router.use('/account/products', authenticateToken, productRoutes);
+
+// errors
 router.use('*', errorRoutes);
 
 module.exports = router;
