@@ -10,7 +10,7 @@ const Sidebar = () => {
                     <ul className="space-y-2">
                         <li className='pb-8 px-4'>
                             <a href="/" className="flex items-center">
-                                <img src={LOGO} className="mr-3 h-16 sm:h-16" alt="Flowbite Logo" />
+                                <img src={LOGO} className="mr-3 h-16 sm:h-16" alt="ONDC Logo" />
                             </a>
                         </li>
                         <li>
