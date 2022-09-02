@@ -8,7 +8,7 @@ async function index(req, res) {
         const perPage = req.query.perPage || 10;
         const skip = (currentPage - 1) * perPage;
         const total = await Product.find().countDocuments();
-        const products = await Product.find().skip(skip).limit(perPage);
+        const products = await Product.find().sort({ _id: -1 }).skip(skip).limit(perPage);
         res.send({
             products: products,
             total: total,
