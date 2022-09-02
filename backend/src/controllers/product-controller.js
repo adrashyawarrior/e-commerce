@@ -1,3 +1,4 @@
+const { text } = require('express');
 const fs = require('fs');
 const Category = require('../models/category');
 
@@ -23,13 +24,16 @@ async function index(req, res) {
 
 async function store(req, res) {
     try {
+        const categories = req.body.categories ? req.body.categories.split(",") : null;
         const input = {
             name: req.body.name,
             price: req.body.price,
             stock: req.body.stock,
-            image: req.file !== undefined ? 'uploads/' + req.file.filename : 'public/images/default-product.png'
+            image: req.file !== undefined ? 'uploads/' + req.file.filename : 'public/images/default-product.png',
+            categories: categories
         };
         const product = await Product.create(input);
+        await Category.updateMany({ '_id': product.categories }, { $push: { products: product._id } });
         const data = {
             success: true,
             data: product,

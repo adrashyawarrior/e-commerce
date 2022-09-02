@@ -12,7 +12,8 @@ const ProductCreate = () => {
     const [stock, setStock] = useState(0);
     const [image, setImage] = useState("");
     const [categories, setCategories] = useState([]);
-    const [selectedCategories, setSelectedCategories] = useState(null);
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
     useEffect(() => {
         ProductService.createProduct().then((response) => {
@@ -26,6 +27,12 @@ const ProductCreate = () => {
             console.log(error);
         });
     }, []);
+
+    useEffect(() => {
+        setSelectedCategories(selectedOptions.map(function (option) {
+            return option.value;
+        }));
+    }, [selectedOptions]);
 
     const submit = async (e) => {
         e.preventDefault();
@@ -67,7 +74,7 @@ const ProductCreate = () => {
                     <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Image</label>
                     <Select
                         defaultValue={selectedCategories}
-                        onChange={setSelectedCategories}
+                        onChange={setSelectedOptions}
                         options={categories}
                         isMulti
                     />
