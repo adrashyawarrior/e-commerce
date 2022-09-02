@@ -2,10 +2,10 @@ import React from 'react'
 import ProductCard from './ProductCard'
 import { Link } from 'react-router-dom'
 import ShopProductService from '../../services/ShopProductService'
+import Pagination from '../../admin/layouts/Pagination'
 
 const Home = () => {
     const [products, setProducts] = React.useState([]);
-    const [refetch, setRefetch] = React.useState(new Date());
     const [currentPage, setCurrentPage] = React.useState(1);
     const [perPage, setPerPage] = React.useState(15);
     const [total, setTotal] = React.useState(0);
@@ -20,7 +20,7 @@ const Home = () => {
             console.log(error);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refetch, currentPage, perPage]);
+    }, [currentPage, perPage]);
 
     function handlePagination(data) {
         setCurrentPage(data.currentPage);
@@ -92,6 +92,17 @@ const Home = () => {
                     </div>
                 </div>
                 <div className='col-span-10'>
+                    <div className='grid grid-cols-4'>
+                        <div></div>
+                        <div>
+                            <Pagination
+                                perPage={perPage}
+                                currentPage={currentPage}
+                                total={total}
+                                onPaginationChange={handlePagination}
+                            />
+                        </div>
+                    </div>
                     <div className='grid grid-cols-5 p-4 m-8 shadow-lg'>
                         {products.map((product, i) => {
                             return (<ProductCard key={'product-' + i} product={product} />)
