@@ -1,8 +1,32 @@
 import React from 'react'
 import ProductCard from './ProductCard'
 import { Link } from 'react-router-dom'
+import ShopProductService from '../../services/ShopProductService'
 
 const Home = () => {
+    const [products, setProducts] = React.useState([]);
+    const [refetch, setRefetch] = React.useState(new Date());
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [perPage, setPerPage] = React.useState(15);
+    const [total, setTotal] = React.useState(0);
+
+    React.useEffect(() => {
+        ShopProductService.getProducts(`?perPage=${perPage}&page=${currentPage}`).then((response) => {
+            setProducts(response.products);
+            setTotal(response.total);
+            setCurrentPage(response.currentPage);
+            setPerPage(response.perPage);
+        }).catch((error) => {
+            console.log(error);
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [refetch, currentPage, perPage]);
+
+    function handlePagination(data) {
+        setCurrentPage(data.currentPage);
+        setPerPage(data.perPage);
+    }
+
     return (
         <div>
             <div className='grid grid-cols-12 w-full'>
@@ -69,11 +93,9 @@ const Home = () => {
                 </div>
                 <div className='col-span-10'>
                     <div className='grid grid-cols-5 p-4 m-8 shadow-lg'>
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
+                        {products.map((product, i) => {
+                            return (<ProductCard />)
+                        })}
                     </div>
                 </div>
             </div>
