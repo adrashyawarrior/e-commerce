@@ -10,7 +10,7 @@ import AdminDashboard from './admin/components/dashboards/AdminDashboard';
 const protectedRoutes = [
     // Main Routes ===================
     {
-        path: "/",
+        path: "/dashboard",
         element: <AdminDashboard />,
     },
 
@@ -47,6 +47,7 @@ const protectedRoutes = [
         path: "/logout",
         element: <Logout />,
     }
+
 ];
 
-export default protectedRoutes
+export { protectedRoutes }

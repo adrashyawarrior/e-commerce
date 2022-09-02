@@ -2,10 +2,12 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Login from './admin/components/auth/Login';
-import protectedRoutes from './Routes';
+import { protectedRoutes } from './Routes';
 
 import RequireAuth from './admin/components/auth/RequireAuth';
 import Dashboard from './admin/layouts/Dashboard';
+import Home from './shop/components/Home';
+import Main from './shop/layouts/Main';
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
             })}
           </Route>
           <Route path='/login' element={<Login />} />
+          <Route path='/' element={<Main><Home /></Main>} />
         </Routes>
       </BrowserRouter>
     </div>
