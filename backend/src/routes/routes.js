@@ -15,14 +15,17 @@ const router = express.Router();
 
 router.use(express.json());
 
-
-
-router.use('/categories', categoryRoutes);
+// shop
 router.use('/products', shopProductRoutes);
-router.use('/users', authenticateToken, userRoutes);
-router.use('/account/products', authenticateToken, productRoutes);
+
+// account
 router.use('', authRoutes);
 router.use('', authenticateToken, homeRoutes);
+router.use('/account/categories', categoryRoutes);
+router.use('/users', authenticateToken, userRoutes);
+router.use('/account/products', authenticateToken, productRoutes);
+
+// errors
 router.use('*', errorRoutes);
 
 module.exports = router;

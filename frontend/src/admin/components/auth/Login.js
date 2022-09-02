@@ -35,7 +35,7 @@ const Login = () => {
     useEffect(() => {
         const auth = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : false;
         if (auth)
-            navigate('/');
+            navigate('/dashboard');
     });
 
     return (
