@@ -94,7 +94,7 @@ const Home = () => {
                 <div className='col-span-10'>
                     <div className='grid grid-cols-5 p-4 m-8 shadow-lg'>
                         {products.map((product, i) => {
-                            return (<ProductCard />)
+                            return (<ProductCard key={'product-' + i} product={product} />)
                         })}
                     </div>
                 </div>
