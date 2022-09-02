@@ -30,15 +30,15 @@ const protectedRoutes = [
 
     // Products Routes =================
     {
-        path: "/products/:id/edit",
+        path: "/account/products/:id/edit",
         element: <ProductEdit />,
     },
     {
-        path: "/products",
+        path: "/account/products",
         element: <ProductIndex />,
     },
     {
-        path: "/products/create",
+        path: "/account/products/create",
         element: <ProductCreate />,
     },
 

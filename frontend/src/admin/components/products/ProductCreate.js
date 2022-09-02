@@ -16,7 +16,7 @@ const ProductCreate = () => {
         formData.append('stock', stock);
         formData.append('image', image);
         await ProductService.createProduct(formData);
-        navigate('/products');
+        navigate('/account/products');
     }
 
     return (

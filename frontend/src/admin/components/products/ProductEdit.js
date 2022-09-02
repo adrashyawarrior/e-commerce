@@ -34,7 +34,7 @@ const ProductEdit = () => {
         formData.append('stock', stock);
         formData.append('image', file);
         await ProductService.updateProduct(id, formData);
-        navigate('/products');
+        navigate('/account/products');
     }
 
     useEffect(() => {
