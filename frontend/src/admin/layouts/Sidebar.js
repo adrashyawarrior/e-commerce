@@ -9,7 +9,7 @@ const Sidebar = () => {
                 <div className="overflow-y-auto py-4 px-3 h-screen bg-gray-200 dark:bg-gray-800">
                     <ul className="space-y-2">
                         <li className='pb-8 px-4'>
-                            <a href="/" className="flex items-center">
+                            <a href="/dashboard" className="flex items-center">
                                 <img src={LOGO} className="mr-3 h-16 sm:h-16" alt="ONDC Logo" />
                             </a>
                         </li>
