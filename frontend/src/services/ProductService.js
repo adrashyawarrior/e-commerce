@@ -4,8 +4,12 @@ export default class ProductService {
     static getProducts(query = "") {
         return Http.get('account/products' + query);
     }
+    
+    static createProduct(query = "") {
+        return Http.get('account/products/create' + query);
+    }
 
-    static createProduct(data) {
+    static storeProduct(data) {
         return Http.post('account/products', data);
     }
 

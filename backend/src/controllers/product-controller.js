@@ -1,4 +1,5 @@
-const fs = require('fs')
+const fs = require('fs');
+const Category = require('../models/category');
 
 const Product = require('../models/product')
 
@@ -20,9 +21,8 @@ async function index(req, res) {
     }
 }
 
-async function create(req, res) {
+async function store(req, res) {
     try {
-
         const input = {
             name: req.body.name,
             price: req.body.price,
@@ -104,7 +104,19 @@ async function update(req, res) {
     }
 }
 
+async function create(req, res) {
+    try {
+        const categories = await Category.find({}).select('name _id');
+        const data = {
+            categories: categories
+        };
+        res.send(data);
+    } catch (error) {
+        res.send(error);
+    }
+}
+
 
 module.exports = {
-    index, create, destroy, edit, update
+    index, store, destroy, edit, update, create
 };

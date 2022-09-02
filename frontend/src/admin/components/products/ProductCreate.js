@@ -1,13 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Select from 'react-select'
+
 import ProductService from '../../../services/ProductService';
 
 const ProductCreate = () => {
+
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState(0);
     const [image, setImage] = useState("");
+    const [categories, setCategories] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState(null);
+
+    useEffect(() => {
+        ProductService.createProduct().then((response) => {
+            setCategories(response.categories.map(function (category) {
+                return {
+                    value: category._id,
+                    label: category.name
+                }
+            }));
+        }).catch((error) => {
+            console.log(error);
+        });
+    }, []);
+
     const submit = async (e) => {
         e.preventDefault();
         let formData = new FormData();
@@ -15,9 +34,12 @@ const ProductCreate = () => {
         formData.append('price', price);
         formData.append('stock', stock);
         formData.append('image', image);
-        await ProductService.createProduct(formData);
+        formData.append('categories', selectedCategories);
+        await ProductService.storeProduct(formData);
         navigate('/account/products');
     }
+
+
 
     return (
         <div className='m-8 p-16 rounded-xl bg-gray-100'>
@@ -43,8 +65,11 @@ const ProductCreate = () => {
                 </div>
                 <div className="mb-6">
                     <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Image</label>
-                    <input type="file" name='image' id="image" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Robert Junior" required=""
-                        onChange={(e) => { setImage(e.target.files[0]) }}
+                    <Select
+                        defaultValue={selectedCategories}
+                        onChange={setSelectedCategories}
+                        options={categories}
+                        isMulti
                     />
                 </div>
                 <div className="flex items-start mb-6">
