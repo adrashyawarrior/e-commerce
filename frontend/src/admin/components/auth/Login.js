@@ -14,7 +14,7 @@ const Login = () => {
         const response = await login('http://localhost:4000/login', user);
         if (response.success) {
             localStorage.setItem('user', JSON.stringify(response.data));
-            navigate('/');
+            navigate('/dashboard');
         } else {
             navigate('/login');
             alert('Oops! Wrong Email or Password.')
