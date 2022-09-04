@@ -2,7 +2,7 @@ import React from 'react'
 import ProductCard from './ProductCard'
 import { Link } from 'react-router-dom'
 import ShopProductService from '../../services/ShopProductService'
-import Pagination from '../../admin/layouts/Pagination'
+import Pagination from '../../shop/layouts/Pagination'
 
 const Home = () => {
     const [products, setProducts] = React.useState([]);
@@ -28,12 +28,11 @@ const Home = () => {
     }
 
     return (
-        <div>
+        <div className='bg-gray-300 p-4'>
             <div className='grid grid-cols-12 w-full'>
                 <div className='col-span-2'>
-                    <div className='grid grid-cols-1 m-8 shadow-lg min-h-[30em]'>
+                    <div className='grid grid-cols-1 m-8 min-h-[30em]'>
                         <aside className="w-64" aria-label="Sidebar">
-
                             <div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
                                 <span className='text-lg px-3'>Categories</span>
                                 <ul className="space-y-2 mt-4">
@@ -88,10 +87,14 @@ const Home = () => {
                                 </ul>
                             </div>
                         </aside>
-
                     </div>
                 </div>
                 <div className='col-span-10'>
+                    <div className='grid grid-cols-5 gap-4 m-8'>
+                        {products.map((product, i) => {
+                            return (<ProductCard key={'product-' + i} product={product} />)
+                        })}
+                    </div>
                     <div className='grid grid-cols-4'>
                         <div></div>
                         <div>
@@ -100,13 +103,9 @@ const Home = () => {
                                 currentPage={currentPage}
                                 total={total}
                                 onPaginationChange={handlePagination}
+                                name="Products"
                             />
                         </div>
-                    </div>
-                    <div className='grid grid-cols-5 p-4 m-8 shadow-lg'>
-                        {products.map((product, i) => {
-                            return (<ProductCard key={'product-' + i} product={product} />)
-                        })}
                     </div>
                 </div>
             </div>

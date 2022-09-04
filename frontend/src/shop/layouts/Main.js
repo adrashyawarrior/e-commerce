@@ -8,7 +8,7 @@ const Main = ({ children }) => {
             <div className='w-full flex flex-col'>
                 <Header />
                 <main className=''>
-                    <div className='p-2'>
+                    <div className=''>
                         {children}
                     </div>
                 </main>

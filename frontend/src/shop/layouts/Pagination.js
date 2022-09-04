@@ -4,7 +4,8 @@ const Pagination = ({
     perPage,
     total,
     currentPage,
-    onPaginationChange
+    onPaginationChange,
+    name
 }) => {
     perPage = parseInt(perPage);
     total = parseInt(total);
@@ -28,7 +29,7 @@ const Pagination = ({
         <div>
             <nav aria-label="Page navigation example">
                 <span className="text-sm text-gray-700 dark:text-gray-400 block pb-4 pl-2">
-                    Showing <span className="font-semibold text-gray-900 dark:text-white">{from}</span> to <span className="font-semibold text-gray-900 dark:text-white"> {to} </span> of <span className="font-semibold text-gray-900 dark:text-white"> {total} </span> Entries
+                    Showing <span className="font-semibold text-gray-900 dark:text-white">{from}</span> to <span className="font-semibold text-gray-900 dark:text-white"> {to} </span> of <span className="font-semibold text-gray-900 dark:text-white"> {total} </span>{name || 'Entries'}
                 </span>
                 <ul className="inline-flex -space-x-px">
                     <li>
