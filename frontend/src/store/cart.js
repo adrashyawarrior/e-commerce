@@ -1,13 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    items: [{
-        item: {
-            name: 'Realme 3',
-            price: 10999
-        },
-        quantity: 12
-    }],
+    items: [],
     itemsTotalAmount: 0,
     discountPercentage: 0,
     netAmount: 0,
