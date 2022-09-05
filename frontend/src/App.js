@@ -9,6 +9,7 @@ import Dashboard from './admin/layouts/Dashboard';
 import Home from './shop/components/Home';
 import Main from './shop/layouts/Main';
 import CustomerRegister from './shop/components/customers/CustomerRegister';
+import CustomerLogin from './shop/components/customers/CustomerLogin';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
 
           {/* Shop */}
           <Route path='/' element={<Main><Home /></Main>} />
+          <Route path='/customers/login' element={<Main><CustomerLogin /></Main>} />
           <Route path='/customers/register' element={<Main><CustomerRegister /></Main>} />
         </Routes>
       </BrowserRouter>

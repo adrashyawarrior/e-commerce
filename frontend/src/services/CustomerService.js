@@ -8,4 +8,8 @@ export default class CustomerService {
     static registerCustomer(data) {
         return Http.post('customers/register', data);
     }
+
+    static loginCustomer(data) {
+        return Http.post('customers/login', data);
+    }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import Toast from '../../layouts/Toast'
@@ -15,7 +15,7 @@ const CustomerRegister = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const notifySuccess = (message = 'Registration successfull.') => Toast.sucessToast(message);
+  const notifySuccess = (message) => Toast.sucessToast(message);
   const notifyError = (message) => Toast.errorToast(message);
 
   const submit = async (e) => {
@@ -29,13 +29,24 @@ const CustomerRegister = () => {
 
     const response = await CustomerService.registerCustomer(data);
     if (response.success) {
-      notifySuccess();
+      notifySuccess(response.message);
       navigate('/');
     } else {
       notifyError(response.message);
     }
-
   }
+
+  useEffect(() => {
+    const authUser = localStorage.getItem('authUser') ? JSON.parse(localStorage.getItem('authUser')) : false;
+    if (authUser) {
+      if (authUser.type === 'Customer')
+        navigate('/');
+      else
+        navigate('/dashboard');
+    }
+  }, []);
+
+
   return (
     <section className="bg-gray-200 pb-4 dark:bg-gray-900">
       <div className="flex flex-col items-center px-6 py-8 mx-auto lg:py-0">
