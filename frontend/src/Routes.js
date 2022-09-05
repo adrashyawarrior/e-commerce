@@ -38,8 +38,8 @@ const protectedRoutes = [
         element: <CustomerIndex />,
     },
 
-       // Categories Routes ===================
-       {
+    // Categories Routes ===================
+    {
         path: "/account/categories/:id/edit",
         element: <CategoryEdit />,
     },
