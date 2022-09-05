@@ -7,9 +7,8 @@ const userRoutes = require('./user-routes')
 const productRoutes = require('./product-routes')
 const categoryRoutes = require('./category-routes')
 const { authenticateToken } = require('../middlewares/auth-middleware')
-
-// shop
 const shopProductRoutes = require('../routes/shop-product-routes')
+const customerRoutes = require('./customer-routes')
 
 const router = express.Router();
 
@@ -23,6 +22,7 @@ router.use('', authRoutes);
 router.use('', authenticateToken, homeRoutes);
 router.use('/account/categories', categoryRoutes);
 router.use('/users', authenticateToken, userRoutes);
+router.use('/account/customers', authenticateToken, customerRoutes);
 router.use('/account/products', authenticateToken, productRoutes);
 
 // errors

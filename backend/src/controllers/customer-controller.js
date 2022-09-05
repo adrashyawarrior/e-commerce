@@ -19,21 +19,7 @@ async function index(req, res) {
     }
 }
 
-async function register(req, res) {
-    try {
-        let customer = await Customer.create(req.body);
-        const data = {
-            success: true,
-            data: customer,
-            message: 'Registration Successful.'
-        };
-        res.send(data);
-    } catch (error) {
-        const data = {
-            success: false,
-            data: error,
-            message: 'Something Went Wrong.'
-        };
-        res.send(data);
-    }
+
+module.exports = {
+    index
 }
