@@ -1,33 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from './Navbar'
 import Sidebar from './Sidebar'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const Dashboard = ({ children }) => {
-
+    const navigate = useNavigate();
     const authUser = useSelector((state) => state.authStore.authUser);
-    if (authUser)
-        return (
-            <div className='w-full block'>
-                <div className='w-full flex flex-row'>
-                    <div className='w-1/6 inline-block'>
-                        <Sidebar />
-                    </div>
-                    <main className='w-5/6 flex flex-col'>
-                        <Navbar />
-                        <div className='p-2'>
-                            {children}
-                        </div>
-                    </main>
+    useEffect(() => {
+        if (authUser) {
+            if (authUser.type === 'User')
+                navigate('/dashboard');
+            else
+                navigate('/');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return (
+        <div className='w-full block'>
+            <div className='w-full flex flex-row'>
+                <div className='w-1/6 inline-block'>
+                    <Sidebar />
                 </div>
+                <main className='w-5/6 flex flex-col'>
+                    <Navbar />
+                    <div className='p-2'>
+                        {children}
+                    </div>
+                </main>
             </div>
-        )
-    else
-        return (
-            <>
-                {children}
-            </>
-        )
+        </div>
+    )
 }
 
 export default Dashboard

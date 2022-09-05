@@ -1,11 +1,24 @@
-import React from 'react'
-import {ToastContainer} from 'react-toastify'
+import React, { useEffect } from 'react'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css';
+import { useSelector } from 'react-redux';
 
 import Footer from './Footer'
 import Header from './Header'
+import { useNavigate } from 'react-router-dom';
 
 const Main = ({ children }) => {
+    const navigate = useNavigate();
+    const authUser = useSelector((state) => state.authStore.authUser);
+    useEffect(() => {
+        if (authUser) {
+            if (authUser.type === 'User')
+                navigate('/dashboard');
+            else
+                navigate('/');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
         <div className='w-full block'>
             <ToastContainer />
