@@ -15,25 +15,27 @@ const CustomerRegister = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const notify = () => Toast.sucessToast('Registration successfull.');
-
+  const notifySuccess = (message = 'Registration successfull.') => Toast.sucessToast(message);
+  const notifyError = (message) => Toast.errorToast(message);
 
   const submit = async (e) => {
     e.preventDefault();
-    notify();
-    return 0;
-
     const data = {
       name: name,
       email: email,
       mobile: mobile,
       password: password
     };
-    const customer = await CustomerService.registerCustomer(data);
-    console.log(customer);
-    navigate('/');
-  }
 
+    const response = await CustomerService.registerCustomer(data);
+    if (response.success) {
+      notifySuccess();
+      navigate('/');
+    } else {
+      notifyError(response.message);
+    }
+
+  }
   return (
     <section className="bg-gray-200 pb-4 dark:bg-gray-900">
       <div className="flex flex-col items-center px-6 py-8 mx-auto lg:py-0">

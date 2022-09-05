@@ -79,7 +79,7 @@ async function customerReginstration(req, res) {
         res.send({
             success: false,
             data: error,
-            message: 'Oops! Wrong Email or Password.'
+            message: 'Oops! Please fill information correctly.'
         })
     }
 }
