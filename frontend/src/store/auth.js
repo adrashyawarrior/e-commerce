@@ -12,6 +12,13 @@ const login = (state, action) => {
     state.isAuthenticated = true;
 }
 
+const loginCustomer = (state, action) => {
+    const authUser = { ...action.payload, type: "Customer" };
+    localStorage.setItem('authUser', JSON.stringify(authUser));
+    state.authUser = authUser;
+    state.isAuthenticated = true;
+}
+
 const logout = (state) => {
     localStorage.clear();
     state.authUser = null;
@@ -23,7 +30,8 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {
         login,
-        logout
+        logout,
+        loginCustomer
     }
 });
 

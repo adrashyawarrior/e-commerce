@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import CustomerService from '../../../services/CustomerService';
+import { authActions } from '../../../store/auth';
 import Toast from '../../layouts/Toast';
 
 const CustomerLogin = () => {
@@ -11,6 +13,7 @@ const CustomerLogin = () => {
     const notifySuccess = (message) => Toast.sucessToast(message);
     const notifyError = (message) => Toast.errorToast(message);
 
+    const dispatch = useDispatch();
 
     const submit = async (e) => {
         e.preventDefault();
@@ -20,10 +23,7 @@ const CustomerLogin = () => {
         };
         const response = await CustomerService.loginCustomer(data);
         if (response.success) {
-            localStorage.setItem('authUser', JSON.stringify({
-                ...response.data,
-                type: "Customer"
-            }));
+            dispatch(authActions.loginCustomer(response.data));
             notifySuccess(response.message);
             navigate('/');
         } else {

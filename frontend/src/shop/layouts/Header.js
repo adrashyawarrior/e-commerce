@@ -6,12 +6,11 @@ import LOGO from '../../storage/images/logo.png'
 
 const Header = () => {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-    const [authUser, setAuthUser] = useState();
     const cartItems = useSelector((state) => state.cartStore.items);
+    const authUser = useSelector((state) => state.authStore.authUser);
 
     useEffect(() => {
-        setAuthUser(localStorage.getItem('authUser') ? JSON.parse(localStorage.getItem('authUser')) : null);
-    }, []);
+    }, [cartItems, authUser]);
 
     return (
         <header>
