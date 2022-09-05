@@ -44,6 +44,7 @@ const CustomerRegister = () => {
       else
         navigate('/dashboard');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 

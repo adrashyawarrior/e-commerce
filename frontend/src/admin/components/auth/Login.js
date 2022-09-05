@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { authActions } from '../../../store/auth'
 
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const isAuthenticated = useSelector((state) => state.authStore.isAuthenticated);
+    const authUser = useSelector((state) => state.authStore.authUser);
+
+    const dispatch = useDispatch();
+
     const submit = async (e) => {
         e.preventDefault();
         const user = {
@@ -13,7 +21,7 @@ const Login = () => {
         };
         const response = await login('http://localhost:4000/login', user);
         if (response.success) {
-            localStorage.setItem('user', JSON.stringify(response.data));
+            dispatch(authActions.login(response.data));
             navigate('/dashboard');
         } else {
             navigate('/login');
@@ -33,10 +41,14 @@ const Login = () => {
     }
 
     useEffect(() => {
-        const auth = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : false;
-        if (auth)
-            navigate('/dashboard');
-    });
+        if (isAuthenticated) {
+            if (authUser.type === 'User')
+                navigate('/dashboard');
+            else
+                navigate('/');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className='m-16 p-16 w-1/2 bg-gray-100'>

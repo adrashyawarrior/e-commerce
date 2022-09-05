@@ -1,10 +1,12 @@
 import React from 'react'
 import Navbar from './Navbar'
 import Sidebar from './Sidebar'
+import { useSelector } from 'react-redux'
 
 const Dashboard = ({ children }) => {
-    let auth = localStorage.getItem('user');
-    if (auth)
+
+    const authUser = useSelector((state) => state.authStore.authUser);
+    if (authUser)
         return (
             <div className='w-full block'>
                 <div className='w-full flex flex-row'>

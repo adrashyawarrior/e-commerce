@@ -5,7 +5,7 @@ export default class Http {
         baseURL: 'http://localhost:4000/',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + (localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).accessToken : '')
+            'Authorization': 'Bearer ' + (localStorage.getItem('authUser') ? JSON.parse(localStorage.getItem('authUser')).accessToken : '')
         },
     });
 
