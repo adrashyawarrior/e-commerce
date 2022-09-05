@@ -9,6 +9,7 @@ import AdminDashboard from './admin/components/dashboards/AdminDashboard';
 import CategoryEdit from './admin/components/categories/CategoryEdit';
 import CategoryIndex from './admin/components/categories/CategoryIndex';
 import CategoryCreate from './admin/components/categories/CategoryCreate';
+import CustomerIndex from './admin/components/customers/CustomerIndex';
 
 const protectedRoutes = [
     // Main Routes ===================
@@ -29,6 +30,12 @@ const protectedRoutes = [
     {
         path: "/users/create",
         element: <UserCreate />,
+    },
+
+    // Customer Routes ===================
+    {
+        path: "/account/customers",
+        element: <CustomerIndex />,
     },
 
        // Categories Routes ===================
