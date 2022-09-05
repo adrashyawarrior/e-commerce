@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import Toast from '../../layouts/Toast'
 
 import LOGO from '../../../storage/images/logo.png'
 import CustomerService from '../../../services/CustomerService'
@@ -14,8 +15,14 @@ const CustomerRegister = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const notify = () => Toast.sucessToast('Registration successfull.');
+
+
   const submit = async (e) => {
     e.preventDefault();
+    notify();
+    return 0;
+
     const data = {
       name: name,
       email: email,
