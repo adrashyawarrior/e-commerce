@@ -30,7 +30,6 @@ const removeItem = (state, action) => {
         state.payableAmount = state.netAmount;
         state.items.splice(item._id, 1);
     }
-
 };
 
 const slice = createSlice({

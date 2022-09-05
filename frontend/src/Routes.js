@@ -71,7 +71,6 @@ const protectedRoutes = [
         path: "/logout",
         element: <Logout />,
     }
-
 ];
 
 export { protectedRoutes }

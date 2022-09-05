@@ -21,6 +21,13 @@ const Customer = mongoose.Schema({
         type: String,
         enum: ['Active', 'Inactive'],
         default: 'Active'
+    },
+    cart: {
+        products: [],
+        quantity: {
+            type: Number,
+            default: 0,
+        }
     }
 }, { timestamps: true });
 
