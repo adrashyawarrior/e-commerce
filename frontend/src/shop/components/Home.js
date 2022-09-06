@@ -90,7 +90,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div className='col-span-10'>
-                    <div className='grid grid-cols-5 gap-4 m-8'>
+                    <div className='grid grid-cols-5 gap-4 py-8 pr-8 pl-16'>
                         {products.map((product, i) => {
                             return (<ProductCard key={'product-' + i} product={product} />)
                         })}
