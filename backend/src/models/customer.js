@@ -23,11 +23,32 @@ const Customer = mongoose.Schema({
         default: 'Active'
     },
     cart: {
-        products: [],
-        quantity: {
+        items: [],
+        itemsTotalAmount: {
             type: Number,
-            default: 0,
+            default: 0
+        },
+        discountPercentage: {
+            type: Number,
+            default: 0
+        },
+        netAmount: {
+            type: Number,
+            default: 0
+        },
+        taxPercentage: {
+            type: Number,
+            default: 0
+        },
+        deliveryCharge: {
+            type: Number,
+            default: 0
+        },
+        payableAmount: {
+            type: Number,
+            default: 0
         }
+
     }
 }, { timestamps: true });
 

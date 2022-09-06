@@ -6,6 +6,24 @@ async function notFound(req, res) {
     }
 }
 
+function successResponse(message, data) {
+    return {
+        success: true,
+        message: message,
+        data: data
+    };
+}
+
+function errorResponse(error) {
+    return {
+        success: false,
+        message: "Something went wrong.",
+        data: error
+    };
+}
+
 module.exports = {
-    notFound
+    notFound,
+    successResponse,
+    errorResponse
 }

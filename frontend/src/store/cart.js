@@ -10,34 +10,15 @@ const initialState = {
     payableAmount: 0
 };
 
-const addItem = (state, action) => {
-    const item = action.payload.item;
-    if (state.items.some(key => key === item._id)) {
-        state.items[item._id] = { item: item, quantity: state.items[item._id].quantity + 1 };
-    } else {
-        state.items[item._id] = { item: item, quantity: 1 };
-    }
-    state.itemsTotalAmount += item.price;
-    state.netAmount = state.itemsTotalAmount;
-    state.payableAmount = state.netAmount;
-};
-
-const removeItem = (state, action) => {
-    const item = action.payload.item;
-    if (state.items.some(key => key === item._id)) {
-        state.itemsTotalAmount -= (item.price * state.items[item._id].quantity);
-        state.netAmount = state.itemsTotalAmount;
-        state.payableAmount = state.netAmount;
-        state.items.splice(item._id, 1);
-    }
+const updateCart = (state, action) => {
+    state = action.payload;
 };
 
 const slice = createSlice({
     name: 'cart',
     initialState: initialState,
     reducers: {
-        addItem,
-        removeItem
+        updateCart
     }
 });
 
