@@ -31,7 +31,7 @@ const UserCreate = () => {
             role: role,
             status: status
         };
-        const user = await UserService.storeUser(data);
+        await UserService.storeUser(data);
         navigate('/users');
     }
 
