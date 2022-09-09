@@ -49,7 +49,7 @@ const Item = ({ id, index, image, name, price, quantity }) => {
                 </svg>
                 </button>
             </div>
-            <div className="">₹ {parseFloat(price) * parseInt(quantity)}</div>
+            <div className="font-bold">₹ {parseFloat(price) * parseInt(quantity)}</div>
             <div className="">
                 <Link to="#" onClick={() => { removeProductHandler(true) }}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-300 hover:text-red-500">
