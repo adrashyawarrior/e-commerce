@@ -26,7 +26,7 @@ async function addProduct(req, res) {
             res.status(401).send("Opps! Unauthorized Access.");
         } else {
             const customer = await Customer.findById(res.locals.AuthUser._id);
-            await customer.addItemToCart(req.body.item_id);
+            await customer.addItemToCart(req.body.itemId);
             const data = {
                 success: true,
                 message: 'Product added to cart successfully.',
@@ -51,7 +51,7 @@ async function removeProduct(req, res) {
             res.status(401).send("Opps! Unauthorized Access.");
         } else {
             const customer = await Customer.findById(res.locals.AuthUser._id);
-            await customer.removeItemFromCart(req.body.item_id);
+            await customer.removeItemFromCart(req.body.itemId, req.body.removeAll);
             const data = {
                 success: true,
                 message: 'Product removed from cart successfully.',

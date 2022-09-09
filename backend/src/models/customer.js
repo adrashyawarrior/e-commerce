@@ -62,13 +62,13 @@ const Customer = mongoose.Schema({
 }, { timestamps: true });
 
 
-Customer.methods.addItemToCart = async function (product_id) {
+Customer.methods.addItemToCart = async function (productId) {
     const cartItems = this.cart.items;
-    const i = cartItems.findIndex(item => item.product._id == product_id);
+    const i = cartItems.findIndex(item => item.product._id == productId);
     if (i > -1) {
         cartItems[i].quantity += 1;
     } else {
-        cartItems.push({ product: product_id, quantity: 1 });
+        cartItems.push({ product: productId, quantity: 1 });
     }
     const cart = {
         items: cartItems,
@@ -84,12 +84,16 @@ Customer.methods.addItemToCart = async function (product_id) {
     return true;
 }
 
-Customer.methods.removeItemFromCart = async function (product_id) {
+Customer.methods.removeItemFromCart = async function (productId, removeAll = false) {
     const cartItems = this.cart.items;
-    const i = cartItems.findIndex(item => item.product._id == product_id);
+    const i = cartItems.findIndex(item => item.product._id == productId);
     console.log(cartItems);
     if (i > -1) {
-        cartItems.splice(i, 1);
+        if (cartItems[i].quantity <= 1 || removeAll) {
+            cartItems.splice(i, 1);
+        } else {
+            cartItems[i].quantity -= 1;
+        }
         const cart = {
             items: cartItems,
             itemsTotalAmount: 0,
@@ -104,5 +108,6 @@ Customer.methods.removeItemFromCart = async function (product_id) {
     }
     return true;
 }
+
 
 module.exports = mongoose.model('Customer', Customer);
