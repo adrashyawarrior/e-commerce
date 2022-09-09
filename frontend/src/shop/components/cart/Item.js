@@ -31,7 +31,7 @@ const Item = ({ id, index, image, name, price, quantity }) => {
 
 
     return (
-        <div class="grid grid-cols-12 justify-between px-4 py-2 leading-normal items-center bg-gray-100 rounded-lg border shadow-md  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-5/6 mx-2 my-2">
+        <div class="grid grid-cols-12 justify-between px-4 py-2 leading-normal items-center bg-gray-100 rounded-lg border shadow-md w-full mx-2 my-2">
             <div className="">{index || 'NA'}</div>
             <div className="col-span-2">
                 <img className="rounded-t-lg w-6 h-6" src={'http://localhost:4000/' + image} alt="" />
