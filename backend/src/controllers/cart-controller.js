@@ -2,6 +2,26 @@ const Customer = require("../models/customer");
 const Product = require("../models/product");
 const { successReponse, errorResponse } = require('./error-controller')
 
+async function getCart(req, res) {
+    try {
+        if (!res.locals.AuthUser || res.locals.AuthUser.constructor.modelName !== "Customer") {
+            res.status(401).send("Opps! Unauthorized Access.");
+        } else {
+            const customer = await Customer.findById(res.locals.AuthUser._id);
+            const data = {
+                cart: customer.cart
+            };
+            res.send(data);
+        }
+    } catch (error) {
+        res.send({
+            success: false,
+            message: "Something went wrong.",
+            data: error
+        });
+    }
+}
+
 async function addProduct(req, res) {
     try {
         if (!res.locals.AuthUser || res.locals.AuthUser.constructor.modelName !== "Customer") {
@@ -48,6 +68,9 @@ async function addProduct(req, res) {
     }
 }
 
+
+
 module.exports = {
+    getCart,
     addProduct
 }
