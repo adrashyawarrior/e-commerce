@@ -4,6 +4,6 @@ const CartController = require('../controllers/cart-controller')
 
 const router = express.Router();
 
-router.put('/:id/addproduct', CartController.addProduct);
+router.put('/addproduct', CartController.addProduct);
 
 module.exports = router;

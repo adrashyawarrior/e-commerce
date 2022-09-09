@@ -6,7 +6,7 @@ const homeRoutes = require('./home-routes')
 const userRoutes = require('./user-routes')
 const productRoutes = require('./product-routes')
 const categoryRoutes = require('./category-routes')
-const { authenticateToken } = require('../middlewares/auth-middleware')
+const { authenticateToken, authenticateCustomerToken } = require('../middlewares/auth-middleware')
 const shopProductRoutes = require('../routes/shop-product-routes')
 const customerRoutes = require('./customer-routes')
 const cartRoutes = require('./cart-routes')
@@ -17,7 +17,7 @@ router.use(express.json());
 
 // shop
 router.use('/products', shopProductRoutes);
-router.use('/cart', cartRoutes);
+router.use('/cart', authenticateCustomerToken, cartRoutes);
 
 // account
 router.use('', authRoutes);
