@@ -36,7 +36,7 @@ const Item = ({ id, index, image, name, price, quantity }) => {
             <div className="col-span-2">
                 <img className="rounded-t-lg w-6 h-6" src={'http://localhost:4000/' + image} alt="" />
             </div>
-            <div className="col-span-3">{name || 'NA'}</div>
+            <div className="col-span-4">{name || 'NA'}</div>
             <div className="">₹ {price || 'NA'}</div>
             <div className="col-span-2">
                 <button onClick={() => { removeProductHandler() }} type="button" class="text-red-400 hover:text-red-600 font-medium rounded-lg text-sm"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
