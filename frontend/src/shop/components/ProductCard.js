@@ -10,7 +10,6 @@ import { cartActions } from '../../store/cart'
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
     const authUser = useSelector((state) => state.authStore.authUser);
-    const cartStore = useSelector((state)=> state.cartStore);
 
     async function addProductHandler() {
         if (authUser && authUser.type === 'Customer') {
@@ -18,7 +17,6 @@ const ProductCard = ({ product }) => {
             if(response.success){
                 dispatch(cartActions.updateCart(response.data.cart));
             }
-            console.log(cartStore);
         }
     }
 

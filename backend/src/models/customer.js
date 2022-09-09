@@ -23,7 +23,16 @@ const Customer = mongoose.Schema({
         default: 'Active'
     },
     cart: {
-        items: [],
+        items: [{
+            product: {
+                type: mongoose.Types.ObjectId,
+                ref: 'Product',
+            },
+            quantity: {
+                type: Number,
+                default: 0
+            }
+        }],
         itemsTotalAmount: {
             type: Number,
             default: 0
@@ -51,5 +60,49 @@ const Customer = mongoose.Schema({
 
     }
 }, { timestamps: true });
+
+
+Customer.methods.addItemToCart = async function (product_id) {
+    const cartItems = this.cart.items;
+    const i = cartItems.findIndex(item => item.product._id == product_id);
+    if (i > -1) {
+        cartItems[i].quantity += 1;
+    } else {
+        cartItems.push({ product: product_id, quantity: 1 });
+    }
+    const cart = {
+        items: cartItems,
+        itemsTotalAmount: 0,
+        discountPercentage: 0,
+        netAmount: 0,
+        taxPercentage: 0,
+        deliveryCharge: 0,
+        payableAmount: 0
+    };
+    this.cart = cart;
+    await this.save();
+    return true;
+}
+
+Customer.methods.removeItemFromCart = async function (product_id) {
+    const cartItems = this.cart.items;
+    const i = cartItems.findIndex(item => item.product._id == product_id);
+    console.log(cartItems);
+    if (i > -1) {
+        cartItems.splice(i, 1);
+        const cart = {
+            items: cartItems,
+            itemsTotalAmount: 0,
+            discountPercentage: 0,
+            netAmount: 0,
+            taxPercentage: 0,
+            deliveryCharge: 0,
+            payableAmount: 0
+        };
+        this.cart = cart;
+        await this.save();
+    }
+    return true;
+}
 
 module.exports = mongoose.model('Customer', Customer);
