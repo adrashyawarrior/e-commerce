@@ -10,7 +10,7 @@ const Item = ({ id, index, image, name, price, quantity }) => {
 
     async function removeProductHandler() {
         if (authUser && authUser.type === 'Customer') {
-            const response = await CartService.removeProduct({ item_id: id })
+            const response = await CartService.removeProduct({ itemId: id })
             if (response.success) {
                 dispatch(cartActions.updateCart(response.data.cart));
             }

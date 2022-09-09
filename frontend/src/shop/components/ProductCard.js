@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
 
     async function addProductHandler() {
         if (authUser && authUser.type === 'Customer') {
-            const response = await CartService.addProduct({ item_id: product._id })
+            const response = await CartService.addProduct({ itemId: product._id })
             if(response.success){
                 dispatch(cartActions.updateCart(response.data.cart));
             }
