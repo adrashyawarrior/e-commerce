@@ -70,6 +70,9 @@ Customer.methods.addItemToCart = async function (productId) {
     } else {
         cartItems.push({ product: productId, quantity: 1 });
     }
+
+    // map through cartItems
+
     const cart = {
         items: cartItems,
         itemsTotalAmount: 0,
