@@ -21,7 +21,7 @@ const loginCustomer = (state, action) => {
 
 const logout = (state) => {
     localStorage.clear();
-    state.authUser = null;
+    state.authUser = {};
     state.isAuthenticated = false;
 }
 

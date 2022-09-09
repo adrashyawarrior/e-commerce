@@ -49,6 +49,7 @@ async function customerLogin(req, res) {
                     name: customer.name,
                     email: customer.email,
                     accessToken: accessToken,
+                    cart:customer.cart
                 },
                 message: 'You have loggedin Successfully.'
             });

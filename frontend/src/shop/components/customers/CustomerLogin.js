@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import CustomerService from '../../../services/CustomerService';
 import { authActions } from '../../../store/auth';
+import { cartActions } from '../../../store/cart';
 import Toast from '../../layouts/Toast';
 
 const CustomerLogin = () => {
@@ -24,6 +25,7 @@ const CustomerLogin = () => {
         const response = await CustomerService.loginCustomer(data);
         if (response.success) {
             dispatch(authActions.loginCustomer(response.data));
+            dispatch(cartActions.updateCart(response.data.cart));
             notifySuccess(response.message);
             navigate('/');
         } else {

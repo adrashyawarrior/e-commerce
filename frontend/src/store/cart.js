@@ -11,7 +11,13 @@ const initialState = {
 };
 
 const updateCart = (state, action) => {
-    state = action.payload;
+    state.items = action.payload.items;
+    state.itemsTotalAmount = action.payload.itemsTotalAmount;
+    state.discountPercentage = action.payload.discountPercentage;
+    state.netAmount = action.payload.netAmount;
+    state.taxPercentage = action.payload.taxPercentage;
+    state.deliveryCharge = action.payload.deliveryCharge;
+    state.payableAmount = action.payload.payableAmount;
 };
 
 const slice = createSlice({

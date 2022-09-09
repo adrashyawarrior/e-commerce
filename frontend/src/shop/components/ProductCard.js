@@ -10,13 +10,15 @@ import { cartActions } from '../../store/cart'
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
     const authUser = useSelector((state) => state.authStore.authUser);
+    const cartStore = useSelector((state)=> state.cartStore);
 
     async function addProductHandler() {
         if (authUser && authUser.type === 'Customer') {
-            const response = await CartService.addProduct('6315d54db5ee9ee6dcd07036', { item: product })
+            const response = await CartService.addProduct({ item_id: product._id })
             if(response.success){
-                dispatch(cartActions.updateCart(response.data.cart))
+                dispatch(cartActions.updateCart(response.data.cart));
             }
+            console.log(cartStore);
         }
     }
 
