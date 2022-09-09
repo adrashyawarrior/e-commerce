@@ -87,7 +87,6 @@ Customer.methods.addItemToCart = async function (productId) {
 Customer.methods.removeItemFromCart = async function (productId, removeAll = false) {
     const cartItems = this.cart.items;
     const i = cartItems.findIndex(item => item.product._id == productId);
-    console.log(cartItems);
     if (i > -1) {
         if (cartItems[i].quantity <= 1 || removeAll) {
             cartItems.splice(i, 1);

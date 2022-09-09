@@ -6,8 +6,25 @@ async function getCart(req, res) {
             res.status(401).send("Opps! Unauthorized Access.");
         } else {
             const customer = await Customer.findById(res.locals.AuthUser._id);
+            const cart = await customer.cart.populate('items.product');
             const data = {
-                cart: customer.cart
+                cart: {
+                    items: cart.items.map(item => {
+                        return {
+                            _id: item.product._id,
+                            name: item.product.name,
+                            price: item.product.price,
+                            image: item.product.image,
+                            quantity: item.quantity
+                        }
+                    }),
+                    itemsTotalAmount: cart.itemsTotalAmount,
+                    discountPercentage: cart.discountPercentage,
+                    netAmount: cart.netAmount,
+                    taxPercentage: cart.taxPercentage,
+                    deliveryCharge: cart.deliveryCharge,
+                    payableAmount: cart.payableAmount
+                }
             };
             res.send(data);
         }
@@ -32,7 +49,23 @@ async function addProduct(req, res) {
                 success: true,
                 message: 'Product added to cart successfully.',
                 data: {
-                    cart: cart
+                    cart: {
+                        items: cart.items.map(item => {
+                            return {
+                                _id: item.product._id,
+                                name: item.product.name,
+                                price: item.product.price,
+                                image: item.product.image,
+                                quantity: item.quantity
+                            }
+                        }),
+                        itemsTotalAmount: cart.itemsTotalAmount,
+                        discountPercentage: cart.discountPercentage,
+                        netAmount: cart.netAmount,
+                        taxPercentage: cart.taxPercentage,
+                        deliveryCharge: cart.deliveryCharge,
+                        payableAmount: cart.payableAmount
+                    }
                 }
             };
             res.send(data);
@@ -54,11 +87,28 @@ async function removeProduct(req, res) {
             const customer = await Customer.findById(res.locals.AuthUser._id);
             await customer.removeItemFromCart(req.body.itemId, req.body.removeAll);
             const cart = await customer.cart.populate('items.product');
+
             const data = {
                 success: true,
                 message: 'Product removed from cart successfully.',
                 data: {
-                    cart: cart
+                    cart: {
+                        items: cart.items.map(item => {
+                            return {
+                                _id: item.product._id,
+                                name: item.product.name,
+                                price: item.product.price,
+                                image: item.product.image,
+                                quantity: item.quantity
+                            }
+                        }),
+                        itemsTotalAmount: cart.itemsTotalAmount,
+                        discountPercentage: cart.discountPercentage,
+                        netAmount: cart.netAmount,
+                        taxPercentage: cart.taxPercentage,
+                        deliveryCharge: cart.deliveryCharge,
+                        payableAmount: cart.payableAmount
+                    }
                 }
             };
             res.send(data);
