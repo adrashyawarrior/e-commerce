@@ -60,7 +60,8 @@ function classNames(...classes) {
 }
 
 export default function Products() {
-    const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+    const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+    const [categories, setCategories] = useState();
 
     return (
         <div className="bg-white">
