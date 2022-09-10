@@ -26,22 +26,22 @@ const Cart = () => {
                     <div className="grid grid-cols-12">
                         <div className="col-span-8 text-right">Products Total</div>
                         <div className="text-center">:</div>
-                        <div className="col-span-3">Rs. 12000</div>
+                        <div className="col-span-3">Rs. {cart.itemsTotalAmount}</div>
                     </div>
                     <div className="grid grid-cols-12">
                         <div className="col-span-8 text-right">Discount</div>
                         <div className="text-center">:</div>
-                        <div className="col-span-3">Rs. 12000</div>
+                        <div className="col-span-3">Rs. {cart.discountPercentage}</div>
                     </div>
                     <div className="grid grid-cols-12">
                         <div className="col-span-8 text-right">Tax</div>
                         <div className="text-center">:</div>
-                        <div className="col-span-3">Rs. 12000</div>
+                        <div className="col-span-3">Rs. {cart.taxPercentage}</div>
                     </div>
                     <div className="grid grid-cols-12 border-t-2 pt-1 mt-1 border-gray-400 font-bold">
                         <div className="col-span-8 text-right">Payable Amount</div>
                         <div className="text-center">:</div>
-                        <div className="col-span-3">Rs. 12000</div>
+                        <div className="col-span-3">Rs. {cart.payableAmount}</div>
                     </div>
                 </div>
                 <div className="p-8 grid grid-rows-1">

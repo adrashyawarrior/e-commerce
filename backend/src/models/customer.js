@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Product = require('./product');
 
 const Customer = mongoose.Schema({
     name: {
@@ -71,16 +72,19 @@ Customer.methods.addItemToCart = async function (productId) {
         cartItems.push({ product: productId, quantity: 1 });
     }
 
-    // map through cartItems
+    const item = await Product.findById(productId);
+    const itemsTotalAmount = this.cart.itemsTotalAmount + item.price;
+    const netAmount = itemsTotalAmount;
+    const payableAmount = netAmount;
 
     const cart = {
         items: cartItems,
-        itemsTotalAmount: 0,
+        itemsTotalAmount: itemsTotalAmount,
         discountPercentage: 0,
-        netAmount: 0,
+        netAmount: netAmount,
         taxPercentage: 0,
         deliveryCharge: 0,
-        payableAmount: 0
+        payableAmount: payableAmount
     };
     this.cart = cart;
     await this.save();
@@ -96,14 +100,20 @@ Customer.methods.removeItemFromCart = async function (productId, removeAll = fal
         } else {
             cartItems[i].quantity -= 1;
         }
+
+        const item = await Product.findById(productId);
+        const itemsTotalAmount = this.cart.itemsTotalAmount - item.price;
+        const netAmount = itemsTotalAmount;
+        const payableAmount = netAmount;
+
         const cart = {
             items: cartItems,
-            itemsTotalAmount: 0,
+            itemsTotalAmount: itemsTotalAmount,
             discountPercentage: 0,
-            netAmount: 0,
+            netAmount: netAmount,
             taxPercentage: 0,
             deliveryCharge: 0,
-            payableAmount: 0
+            payableAmount: payableAmount
         };
         this.cart = cart;
         await this.save();
