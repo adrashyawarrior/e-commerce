@@ -1,4 +1,3 @@
-const { text } = require('express');
 const fs = require('fs');
 const Category = require('../models/category');
 
@@ -24,13 +23,12 @@ async function index(req, res) {
 
 async function store(req, res) {
     try {
-        const categories = req.body.categories ? req.body.categories.split(",") : null;
         const input = {
             name: req.body.name,
             price: req.body.price,
             stock: req.body.stock,
             image: req.file !== undefined ? 'uploads/' + req.file.filename : 'public/images/default-product.png',
-            categories: categories
+            category: req.body.category
         };
         const product = await Product.create(input);
         await Category.updateMany({ '_id': product.categories }, { $push: { products: product._id } });
@@ -72,7 +70,12 @@ async function destroy(req, res) {
 async function edit(req, res) {
     try {
         const product = await Product.findById(req.params.id);
-        res.send(product);
+        const categories = await Category.find().select("name");
+        const data = {
+            product: product,
+            categories: categories
+        };
+        res.send(data);
     } catch (error) {
         res.send(error);
     }
@@ -84,6 +87,7 @@ async function update(req, res) {
         req.body.name ? product.name = req.body.name : null;
         req.body.price ? product.price = req.body.price : null;
         req.body.stock ? product.stock = req.body.stock : null;
+        req.body.category ? product.category = req.body.category : null;
         if (req.file !== undefined) {
             const oldImage = product.image;
             if (oldImage !== 'public/images/default-product.png') {

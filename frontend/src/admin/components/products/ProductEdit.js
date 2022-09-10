@@ -10,16 +10,19 @@ const ProductEdit = () => {
     const [stock, setStock] = useState(0);
     const [image, setImage] = useState("");
     const [file, setFile] = useState("");
+    const [category, setCategory] = useState("");
+    const [categories, setCategories] = useState([]);
 
     const [fileDataURL, setFileDataURL] = useState(null);
 
     useEffect(() => {
         ProductService.editProduct(id).then((response) => {
-            setName(response.name);
-            setPrice(response.price);
-            setStock(response.stock);
-            setImage(response.image);
-
+            setName(response.product.name);
+            setPrice(response.product.price);
+            setStock(response.product.stock);
+            setImage(response.product.image);
+            setCategory(response.product.category);
+            setCategories(response.categories);
         }).catch((error) => {
             console.log(error);
         });
@@ -33,6 +36,7 @@ const ProductEdit = () => {
         formData.append('price', price);
         formData.append('stock', stock);
         formData.append('image', file);
+        formData.append('category', category);
         await ProductService.updateProduct(id, formData);
         navigate('/account/products');
     }
@@ -70,6 +74,21 @@ const ProductEdit = () => {
                     <input type="number" id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required=""
                         value={price} onChange={(e) => { setPrice(e.target.value) }}
                     />
+                </div>
+                <div className="mb-6">
+                    <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">  Category </label>
+                    <select id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Robert Junior" required=""
+                        value={category} onChange={(e) => { setCategory(e.target.value) }}
+                    >
+                        <option value="">-- Select Category --</option>
+                        {
+                            categories.map((item) => {
+                                return (
+                                    <option key={"category-" + item._id} value={item._id}> {item.name} </option>
+                                )
+                            })
+                        }
+                    </select>
                 </div>
                 <div className="mb-6">
                     <label htmlFor="stock" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Stock</label>
