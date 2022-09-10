@@ -21,7 +21,7 @@ const CategoryCreate = () => {
             name: name,
             products: products
         };
-        const category = await CategoryService.storeCategory(data);
+        await CategoryService.storeCategory(data);
         navigate('/account/categories');
     }
 
