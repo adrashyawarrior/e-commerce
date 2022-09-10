@@ -9,7 +9,7 @@ async function index(req, res) {
             const perPage = req.query.perPage || 10;
             const total = await Category.find().countDocuments();
             const skip = (currentPage - 1) * perPage;
-            const categories = await Category.find().skip(skip).limit(perPage);
+            const categories = await Category.find().skip(skip).limit(perPage).populate("parentCategory", "name");
             const data = {
                 categories: categories,
                 total: total,
@@ -25,9 +25,9 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
+        const categories = await Category.find({});
         const data = {
-            statuses: ['Active', 'Inactive'],
-            roles: ['Employee', 'Admin'],
+            categories: categories,
         };
         res.send(data);
     } catch (error) {

@@ -64,7 +64,7 @@ const CategoryIndex = () => {
                                 Name
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                Products
+                                Parent Category
                             </th>
                             <th scope="col" className="py-3 px-6">
                                 Action
@@ -80,7 +80,7 @@ const CategoryIndex = () => {
                                             {category.name}
                                         </th>
                                         <td className="py-4 px-6">
-                                            {category.products}
+                                            {category.parentCategory ? category.parentCategory.name : "NA"}
                                         </td>
                                         <td className="py-4 px-6 flex items-center">
                                             <Link to={`/categories/${category._id}/edit`} className="px-1 font-medium inline-block text-blue-600 dark:text-blue-500 hover:underline">

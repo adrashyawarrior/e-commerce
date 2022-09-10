@@ -5,6 +5,14 @@ const Category = mongoose.Schema({
         type: String,
         required: true
     },
+    parentCategory: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Category'
+    },
+    subCategories: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Category'
+    }],
     products: [
         {
             type: mongoose.Types.ObjectId,
