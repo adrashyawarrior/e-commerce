@@ -1,4 +1,5 @@
 const Product = require('../models/product')
+const Category = require('../models/category')
 
 async function index(req, res) {
     try {
@@ -21,7 +22,20 @@ async function index(req, res) {
     }
 }
 
+async function filters(req, res) {
+    try {
+        const categories = await Category.find().select("name");
+        const data = {
+            categories: categories
+        }
+        res.send(data);
+    } catch (error) {
+        res.send(error);
+    }
+}
+
 
 module.exports = {
-    index
+    index,
+    filters
 };
