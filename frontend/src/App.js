@@ -12,6 +12,7 @@ import CustomerRegister from './shop/components/customers/CustomerRegister';
 import CustomerLogin from './shop/components/customers/CustomerLogin';
 import CustomerLogout from './shop/components/customers/CustomerLogout';
 import Cart from './shop/components/cart/index';
+import Products from './shop/components/products';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path='/customers/login' element={<Main><CustomerLogin /></Main>} />
           <Route path='/customers/register' element={<Main><CustomerRegister /></Main>} />
           <Route path='/cart' element={<Main> <Cart /> </Main>} />
+          <Route path='/products' element={<Main> <Products /> </Main>} />
           <Route path='/customers/logout' element={<CustomerLogout />} />
         </Routes>
       </BrowserRouter>

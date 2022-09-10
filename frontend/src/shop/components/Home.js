@@ -28,7 +28,7 @@ const Home = () => {
     }
 
     return (
-        <div className='bg-gray-300 p-4'>
+        <div className='bg-gray-300 p-4 grid grid-rows-1'>
             <div className='grid grid-cols-12 w-full'>
                 <div className='col-span-2'>
                     <div className='grid grid-cols-1 m-8 min-h-[30em]'>
