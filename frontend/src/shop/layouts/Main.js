@@ -11,11 +11,8 @@ const Main = ({ children }) => {
     const navigate = useNavigate();
     const authUser = useSelector((state) => state.authStore.authUser);
     useEffect(() => {
-        if (authUser) {
-            if (authUser.type === 'User')
-                navigate('/dashboard');
-            else
-                navigate('/');
+        if (authUser && authUser.type === 'User') {
+            navigate('/dashboard');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
