@@ -25,7 +25,7 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
-        const categories = await Category.find({});
+        const categories = await Category.find({}).select("name");
         const data = {
             categories: categories,
         };
@@ -77,8 +77,10 @@ async function destroy(req, res) {
 async function edit(req, res) {
     try {
         const category = await Category.findById(req.params.id);
+        const categories = await Category.find();
         const data = {
-            category: category
+            category: category,
+            categories: categories
         };
         res.send(data);
     } catch (error) {
