@@ -8,9 +8,16 @@ async function index(req, res) {
         const skip = (currentPage - 1) * perPage;
         const total = await Product.find().countDocuments();
 
+        const categories = req.query.categories ? req.query.categories.split(",") : [];
+
         const sortBy = req.query.sortBy || '_id';
         const sortDirection = req.query.sortDirection || -1;
-        const products = await Product.find().sort({ _id: -1 }).skip(skip).limit(perPage);
+        const products = await Product.find()
+            .populate({
+                'path': 'category',
+                'match': { 'name': { '$in': ['Electronics'] } }
+            })
+            .sort({ _id: -1 }).skip(skip).limit(perPage);
         res.send({
             products: products,
             total: total,
