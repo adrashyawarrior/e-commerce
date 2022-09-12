@@ -20,7 +20,7 @@ async function index(req, res) {
 
         const products = await Product.find(categoryFilter)
             .populate('category', 'name')
-            .sort({ [sortBy]: sortDirection }).skip(skip).limit(perPage);
+            .sortBy({ [sortBy]: sortDirection }).skip(skip).limit(perPage);
         res.send({
             products: products,
             total: total,
