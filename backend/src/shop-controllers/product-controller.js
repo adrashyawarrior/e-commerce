@@ -8,7 +8,7 @@ async function index(req, res) {
         const currentPage = req.query.page || 1;
         const perPage = req.query.perPage || 10;
         const skip = (currentPage - 1) * perPage;
-
+       
         const categoryIds = req.query.categories ? req.query.categories.split(",") : [];
 
         let categoryFilter = {};
@@ -20,13 +20,15 @@ async function index(req, res) {
 
         const products = await Product.find(categoryFilter)
             .populate('category', 'name')
-            .sortBy({ [sortBy]: sortDirection }).skip(skip).limit(perPage);
+            .sort({ [sortBy]: sortDirection }).skip(skip).limit(perPage);
+            
         res.send({
             products: products,
             total: total,
             currentPage: currentPage,
             perPage: perPage
         });
+        
     } catch (error) {
         res.send(error);
     }
