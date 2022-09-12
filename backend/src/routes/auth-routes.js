@@ -5,6 +5,8 @@ const UserLoginRequest = require('../requests/users/user-login-request')
 
 const router = express.Router();
 
+router.post('/logout', AuthController.logout);
+router.post('/token', AuthController.refreshToken);
 router.post('/login', UserLoginRequest, AuthController.login);
 router.post('/customers/login', AuthController.customerLogin);
 router.post('/customers/register', AuthController.customerReginstration);
