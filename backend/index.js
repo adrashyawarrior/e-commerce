@@ -6,6 +6,7 @@ const cors = require('cors')
 const routes = require('./src/routes/routes')
 
 mongoose.connect(process.env.DB_URL);
+mongoose.set('toJSON', { virtuals: true });
 
 const app = express()
 

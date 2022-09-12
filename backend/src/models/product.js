@@ -34,4 +34,10 @@ const Product = mongoose.Schema({
     timestamps: true,
 });
 
+Product.virtual('ratingAvg').get(function () {
+    const total = this.ratings.length;
+    const sum = total > 0 ? this.ratings.reduce((temp, item) => temp + item.stars) : 0;
+    return total > 0 ? (sum / total).toFixed(1) : 0;
+});
+
 module.exports = mongoose.model('Product', Product);
