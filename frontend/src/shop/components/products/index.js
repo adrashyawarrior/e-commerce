@@ -18,6 +18,12 @@ const sortDirections = [
     { name: 'Descending', value: 'desc' }
 ]
 
+const perPageOptions = [
+    { name: '8', value: 8 },
+    { name: '12', value: 12 },
+    { name: '16', value: 16 },
+    { name: '20', value: 20 },
+]
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -81,6 +87,12 @@ export default function Products() {
                 return value !== categoryId;
             }))
         }
+    }
+
+    function handlePerPageSelect(value) {
+        setPerPage(value);
+        setCurrentPage(1);
+        return true;
     }
 
     return (
@@ -263,6 +275,48 @@ export default function Products() {
                                 </Transition>
                             </Menu>
 
+
+                            <Menu as="div" className="relative inline-block text-left mx-4">
+                                <div>
+                                    <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                                        Per Page
+                                        <ChevronDownIcon
+                                            className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                            aria-hidden="true"
+                                        />
+                                    </Menu.Button>
+                                </div>
+
+                                <Transition
+                                    as={Fragment}
+                                    enter="transition ease-out duration-100"
+                                    enterFrom="transform opacity-0 scale-95"
+                                    enterTo="transform opacity-100 scale-100"
+                                    leave="transition ease-in duration-75"
+                                    leaveFrom="transform opacity-100 scale-100"
+                                    leaveTo="transform opacity-0 scale-95"
+                                >
+                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                        <div className="py-1">
+                                            {perPageOptions.map((option) => (
+                                                <Menu.Item key={option.name}>
+                                                    <a
+                                                        href="#"
+                                                        onClick={() => { handlePerPageSelect(option.value) }}
+                                                        className={classNames(
+                                                            (perPage === option.value.toString()) ? 'text-gray-800' : 'text-gray-500',
+                                                            (perPage === option.value.toString()) ? 'bg-gray-100' : '',
+                                                            'block px-4 py-2 text-sm'
+                                                        )}
+                                                    >
+                                                        {option.name}
+                                                    </a>
+                                                </Menu.Item>
+                                            ))}
+                                        </div>
+                                    </Menu.Items>
+                                </Transition>
+                            </Menu>
 
                             <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
                                 <span className="sr-only">View grid</span>

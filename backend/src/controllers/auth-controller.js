@@ -5,7 +5,7 @@ const User = require('../models/user')
 const Customer = require('../models/customer');
 
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_KEY, { expiresIn: '20s' });
+    return jwt.sign(user, process.env.ACCESS_TOKEN_KEY);
 }
 
 function generateRefreshToken(user) {
