@@ -5,7 +5,7 @@ import CategoryService from '../../../services/CategoryService';
 const CategoryCreate = () => {
     const navigate = useNavigate();
     const [name, setName] = useState("");
-    const [parentCategory, setParentCategory] = useState("");
+    const [parentCategory, setParentCategory] = useState();
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {

@@ -27,6 +27,7 @@ export default function Products() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [categories, setCategories] = useState();
     const [sortBy, setSortBy] = useState("latest");
+    const [selectedCategories, setSelectedCategories] = useState([]);
 
     useEffect(() => {
         ShopProductService.getFilters().then((response) => {
@@ -49,9 +50,32 @@ export default function Products() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, perPage]);
 
+    useEffect(() => {
+        ShopProductService.getProducts(`?perPage=${perPage}&page=${currentPage}&categories=${selectedCategories.join(',')}`).then((response) => {
+            setProducts(response.products);
+            setTotal(response.total);
+            setCurrentPage(response.currentPage);
+            setPerPage(response.perPage);
+        }).catch((error) => {
+            console.log(error);
+        });
+        // console.log(selectedCategories);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedCategories]);
+
     function handlePagination(data) {
         setCurrentPage(data.currentPage);
         setPerPage(data.perPage);
+    }
+
+    function handleCategorySelect(categoryId) {
+        if (!selectedCategories.includes(categoryId)) {
+            setSelectedCategories([...selectedCategories, categoryId]);
+        } else {
+            setSelectedCategories(selectedCategories.filter(function (value) {
+                return value !== categoryId;
+            }))
+        }
     }
 
     return (
@@ -237,10 +261,11 @@ export default function Products() {
                                                         <div key={category._id} className="flex items-center">
                                                             <input
                                                                 id={`filter-category-${categoryId}`}
-                                                                name={`${category.id}[]`}
-                                                                defaultValue={category.value}
+                                                                name={`${category._id}[]`}
+                                                                defaultValue={category._id}
                                                                 type="checkbox"
                                                                 defaultChecked=""
+                                                                onClick={() => { handleCategorySelect(category._id) }}
                                                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                             />
                                                             <label
@@ -264,21 +289,27 @@ export default function Products() {
                                 {/* Replace with your content */}
                                 <div className="h-96 rounded-lg lg:h-full" >
                                     <div className='col-span-10'>
-                                        <div className='grid grid-cols-4 gap-4 py-8 pr-8 pl-16'>
-                                            {products.map((product, i) => {
-                                                return (<ProductCard key={'product-' + i} product={product} />)
-                                            })}
-                                        </div>
+                                        {total > 0 ?
+                                            <div className='grid grid-cols-4 gap-4 py-8 pr-8 pl-16'>
+                                                {products.map((product, i) => {
+                                                    return (<ProductCard key={'product-' + i} product={product} />)
+                                                })}
+                                            </div>
+                                            : <div className='p-4'> Sorry No Products Found ! </div>
+                                        }
                                         <div className='grid grid-cols-4'>
                                             <div></div>
                                             <div>
-                                                <Pagination
-                                                    perPage={perPage}
-                                                    currentPage={currentPage}
-                                                    total={total}
-                                                    onPaginationChange={handlePagination}
-                                                    name="Products"
-                                                />
+                                                {
+                                                    total > 0 ?
+                                                        <Pagination
+                                                            perPage={perPage}
+                                                            currentPage={currentPage}
+                                                            total={total}
+                                                            onPaginationChange={handlePagination}
+                                                            name="Products"
+                                                        /> : ''
+                                                }
                                             </div>
                                         </div>
                                     </div>

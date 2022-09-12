@@ -3,20 +3,23 @@ const Category = require('../models/category')
 
 async function index(req, res) {
     try {
+        const sortBy = req.query.sortBy || '_id';
+        const sortDirection = req.query.sortDirection || -1;
         const currentPage = req.query.page || 1;
         const perPage = req.query.perPage || 10;
         const skip = (currentPage - 1) * perPage;
-        const total = await Product.find().countDocuments();
 
-        const categories = req.query.categories ? req.query.categories.split(",") : [];
+        const categoryIds = req.query.categories ? req.query.categories.split(",") : [];
 
-        const sortBy = req.query.sortBy || '_id';
-        const sortDirection = req.query.sortDirection || -1;
-        const products = await Product.find()
-            .populate({
-                'path': 'category',
-                'match': { 'name': { '$in': ['Electronics'] } }
-            })
+        let categoryFilter = {};
+        if (categoryIds.length > 0) {
+            categoryFilter = { category: { $in: categoryIds } };
+        }
+
+        const total = await Product.find(categoryFilter).countDocuments();
+
+        const products = await Product.find(categoryFilter)
+            .populate('category', 'name')
             .sort({ _id: -1 }).skip(skip).limit(perPage);
         res.send({
             products: products,
