@@ -16,10 +16,22 @@ const Product = mongoose.Schema({
         required: true,
         default: 0
     },
+    ratings: [{
+        stars: {
+            type: Number,
+            default: 5
+        },
+        customer: {
+            type: mongoose.Types.ObjectId,
+            ref: 'Customer'
+        }
+    }],
     category: {
         type: mongoose.Types.ObjectId,
         ref: 'Category'
     }
-}, { timestamps: true });
+}, {
+    timestamps: true,
+});
 
 module.exports = mongoose.model('Product', Product);

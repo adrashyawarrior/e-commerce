@@ -63,6 +63,8 @@ const Customer = mongoose.Schema({
 }, { timestamps: true });
 
 
+
+
 Customer.methods.addItemToCart = async function (productId) {
     const cartItems = this.cart.items;
     const i = cartItems.findIndex(item => item.product._id == productId);
