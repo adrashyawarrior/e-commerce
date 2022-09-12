@@ -7,11 +7,15 @@ import Pagination from '../../layouts/Pagination'
 import ProductCard from './ProductCard'
 
 const sortOptions = [
-    { name: 'Newest', value: 'latest' },
-    { name: 'Most Popular', value: 'most-popular' },
-    { name: 'Best Rating', value: 'best-ratings' },
-    { name: 'Price: Low to High', value: 'price-asc' },
-    { name: 'Price: High to Low', value: 'price-desc' },
+    { name: 'Newest', value: '_id' },
+    { name: 'Name', value: 'name' },
+    { name: 'Best Rating', value: 'rating' },
+    { name: 'Price', value: 'price' },
+]
+
+const sortDirections = [
+    { name: 'Ascending', value: 'asc' },
+    { name: 'Descending', value: 'desc' }
 ]
 
 
@@ -26,7 +30,8 @@ export default function Products() {
     const [total, setTotal] = useState(0);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [categories, setCategories] = useState();
-    const [sortBy, setSortBy] = useState("latest");
+    const [sortBy, setSortBy] = useState("_id");
+    const [sortDirection, setSortDirection] = useState("desc");
     const [selectedCategories, setSelectedCategories] = useState([]);
 
     useEffect(() => {
@@ -51,7 +56,7 @@ export default function Products() {
     }, [currentPage, perPage]);
 
     useEffect(() => {
-        ShopProductService.getProducts(`?perPage=${perPage}&page=${currentPage}&categories=${selectedCategories.join(',')}`).then((response) => {
+        ShopProductService.getProducts(`?perPage=${perPage}&page=${currentPage}&sortBy=${sortBy}&sortDirection=${sortDirection}&categories=${selectedCategories.join(',')}`).then((response) => {
             setProducts(response.products);
             setTotal(response.total);
             setCurrentPage(response.currentPage);
@@ -61,7 +66,7 @@ export default function Products() {
         });
         // console.log(selectedCategories);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedCategories]);
+    }, [selectedCategories, sortBy, sortDirection]);
 
     function handlePagination(data) {
         setCurrentPage(data.currentPage);
@@ -174,10 +179,10 @@ export default function Products() {
                         <h1 className="text-4xl font-bold tracking-tight text-gray-900"> Search Your Favourite Products here </h1>
 
                         <div className="flex items-center">
-                            <Menu as="div" className="relative inline-block text-left">
+                            <Menu as="div" className="relative inline-block text-left mx-4">
                                 <div>
                                     <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                                        Sort
+                                        Sort By
                                         <ChevronDownIcon
                                             className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                                             aria-hidden="true"
@@ -215,6 +220,49 @@ export default function Products() {
                                     </Menu.Items>
                                 </Transition>
                             </Menu>
+
+                            <Menu as="div" className="relative inline-block text-left mx-4">
+                                <div>
+                                    <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                                        Sort Direction
+                                        <ChevronDownIcon
+                                            className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                            aria-hidden="true"
+                                        />
+                                    </Menu.Button>
+                                </div>
+
+                                <Transition
+                                    as={Fragment}
+                                    enter="transition ease-out duration-100"
+                                    enterFrom="transform opacity-0 scale-95"
+                                    enterTo="transform opacity-100 scale-100"
+                                    leave="transition ease-in duration-75"
+                                    leaveFrom="transform opacity-100 scale-100"
+                                    leaveTo="transform opacity-0 scale-95"
+                                >
+                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                        <div className="py-1">
+                                            {sortDirections.map((option) => (
+                                                <Menu.Item key={option.name}>
+                                                    <a
+                                                        href="#"
+                                                        onClick={() => { setSortDirection(option.value) }}
+                                                        className={classNames(
+                                                            (sortDirection === option.value) ? 'text-gray-800' : 'text-gray-500',
+                                                            (sortDirection === option.value) ? 'bg-gray-100' : '',
+                                                            'block px-4 py-2 text-sm'
+                                                        )}
+                                                    >
+                                                        {option.name}
+                                                    </a>
+                                                </Menu.Item>
+                                            ))}
+                                        </div>
+                                    </Menu.Items>
+                                </Transition>
+                            </Menu>
+
 
                             <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
                                 <span className="sr-only">View grid</span>

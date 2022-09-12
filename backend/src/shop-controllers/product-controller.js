@@ -4,7 +4,7 @@ const Category = require('../models/category')
 async function index(req, res) {
     try {
         const sortBy = req.query.sortBy || '_id';
-        const sortDirection = req.query.sortDirection || -1;
+        const sortDirection = req.query.sortDirection === 'asc' ? 1 : -1;
         const currentPage = req.query.page || 1;
         const perPage = req.query.perPage || 10;
         const skip = (currentPage - 1) * perPage;
@@ -20,7 +20,7 @@ async function index(req, res) {
 
         const products = await Product.find(categoryFilter)
             .populate('category', 'name')
-            .sort({ _id: -1 }).skip(skip).limit(perPage);
+            .sort({ [sortBy]: sortDirection }).skip(skip).limit(perPage);
         res.send({
             products: products,
             total: total,
