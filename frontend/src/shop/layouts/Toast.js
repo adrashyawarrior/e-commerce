@@ -4,7 +4,7 @@ export default class Toast {
     static sucessToast(message = "!!! Success !!!") {
         return toast.success(message, {
             position: "top-right",
-            autoClose: 5000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,

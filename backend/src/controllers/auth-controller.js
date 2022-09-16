@@ -65,18 +65,37 @@ async function login(req, res) {
 
 async function customerLogin(req, res) {
     try {
-        const customer = await Customer.findOne({
+        var customer = await Customer.findOne({
             email: req.body.email
         });
         if (customer && customer.password == req.body.password) {
             const accessToken = jwt.sign({ email: customer.email }, process.env.ACCESS_TOKEN_KEY);
+            customer = await Customer.findById(customer._id).populate('cart.items.product');
+            const cart = customer.cart;
+            const formatedCart = {
+                items: cart.items.map(item => {
+                    return {
+                        _id: item.product._id,
+                        name: item.product.name,
+                        price: item.product.price,
+                        image: item.product.image,
+                        quantity: item.quantity
+                    }
+                }),
+                itemsTotalAmount: cart.itemsTotalAmount,
+                discountPercentage: cart.discountPercentage,
+                netAmount: cart.netAmount,
+                taxPercentage: cart.taxPercentage,
+                deliveryCharge: cart.deliveryCharge,
+                payableAmount: cart.payableAmount
+            };
             res.send({
                 success: true,
                 data: {
                     name: customer.name,
                     email: customer.email,
                     accessToken: accessToken,
-                    cart: customer.cart
+                    cart: formatedCart
                 },
                 message: 'You have loggedin Successfully.'
             });

@@ -32,7 +32,6 @@ const UserCreate = () => {
             status: status
         };
         const user = await UserService.storeUser(data);
-        console.log(user);
         navigate('/users');
     }
 

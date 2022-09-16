@@ -1,17 +1,18 @@
 import React from 'react'
 import ProductCard from './ProductCard'
 import ShopProductService from '../../services/ShopProductService'
-import Pagination from '../../shop/layouts/Pagination'
+import Loadmore from '../layouts/Loadmore'
 
 const Home = () => {
     const [products, setProducts] = React.useState([]);
     const [currentPage, setCurrentPage] = React.useState(1);
-    const [perPage, setPerPage] = React.useState(15);
+    const [perPage, setPerPage] = React.useState(5);
     const [total, setTotal] = React.useState(0);
+    const [refetch, setRefetch] = React.useState('initial');
 
     React.useEffect(() => {
         ShopProductService.getProducts(`?perPage=${perPage}&page=${currentPage}`).then((response) => {
-            setProducts(response.products);
+            setProducts([...products, ...response.products]);
             setTotal(response.total);
             setCurrentPage(response.currentPage);
             setPerPage(response.perPage);
@@ -19,11 +20,12 @@ const Home = () => {
             console.log(error);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentPage, perPage]);
+    }, [refetch]);
 
     function handlePagination(data) {
         setCurrentPage(data.currentPage);
         setPerPage(data.perPage);
+        setRefetch(new Date());
     }
 
     return (
@@ -38,7 +40,7 @@ const Home = () => {
                     <div className='grid grid-cols-4'>
                         <div></div>
                         <div>
-                            <Pagination
+                            <Loadmore
                                 perPage={perPage}
                                 currentPage={currentPage}
                                 total={total}

@@ -23,11 +23,22 @@ const updateCart = (state, action) => {
     state.payableAmount = action.payload.payableAmount;
 };
 
+const cleanCart = (state, action) => {
+    state.items = [];
+    state.itemsTotalAmount = 0;
+    state.discountPercentage = 0;
+    state.netAmount = 0;
+    state.taxPercentage = 0;
+    state.deliveryCharge = 0;
+    state.payableAmount = 0;
+}
+
 const slice = createSlice({
     name: 'cart',
     initialState: initialState,
     reducers: {
-        updateCart
+        updateCart,
+        cleanCart
     }
 });
 

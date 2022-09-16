@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import LOGO from '../../storage/images/logo.png'
+import { authActions } from '../../store/auth'
+import { cartActions } from '../../store/cart'
 
 const Header = () => {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+    const [refetch, setRefetch] = useState(false);
     const cartItems = useSelector((state) => state.cartStore.items);
     const authUser = useSelector((state) => state.authStore.authUser);
     const currentPath = window.location.pathname;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
-    }, [cartItems, authUser]);
+        setIsProfileMenuOpen(false);
+    }, [cartItems, authUser, refetch]);
+
+    function handleLogout() {
+        dispatch(authActions.logout());
+        dispatch(cartActions.cleanCart());
+        setRefetch(new Date());
+        navigate('/');
+    }
 
     return (
         <header>
@@ -34,6 +47,7 @@ const Header = () => {
                             <Link to="/customers/login" className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</Link>
                             <Link to="/customers/register" className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Signup</Link>
                         </> :
+                           
                             <div className="ml-3 flex flex-row">
                                 <div className='inline-block'>
                                     <button type="button" onClick={() => { setIsProfileMenuOpen(!isProfileMenuOpen) }} className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
@@ -45,7 +59,7 @@ const Header = () => {
                                 <div className={(isProfileMenuOpen ? "absolute" : "hidden") + " -right-42 z-10 mt-12 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"} role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
                                     <Link to="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</Link>
                                     <Link to="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1">Settings</Link>
-                                    <Link to="/customers/logout" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Logout</Link>
+                                    <Link to="#" onClick={() => { handleLogout() }} className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Logout</Link>
                                 </div>
                             </div>
                         }

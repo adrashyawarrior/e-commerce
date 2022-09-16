@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const Cart = () => {
     const cart = useSelector((state) => state.cartStore);
-
     return (<div className="grid grid-rows-1">
         <div className="grid grid-cols-12">
             <div className="col-span-8 px-8 pb-8 pt-4">
