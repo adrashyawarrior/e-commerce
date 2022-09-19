@@ -5,6 +5,8 @@ import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from
 import ShopProductService from '../../../services/ShopProductService'
 import Pagination from '../../layouts/Pagination'
 import ProductCard from './ProductCard'
+import Search from './Search'
+import { Link } from 'react-router-dom'
 
 const sortOptions = [
     { name: 'Newest', value: '_id' },
@@ -39,6 +41,7 @@ export default function Products() {
     const [sortBy, setSortBy] = useState("_id");
     const [sortDirection, setSortDirection] = useState("desc");
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         ShopProductService.getFilters().then((response) => {
@@ -72,7 +75,7 @@ export default function Products() {
         });
         // console.log(selectedCategories);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedCategories, sortBy, sortDirection]);
+    }, [selectedCategories, sortBy, sortDirection, searchTerm]);
 
     function handlePagination(data) {
         setCurrentPage(data.currentPage);
@@ -93,6 +96,10 @@ export default function Products() {
         setPerPage(value);
         setCurrentPage(1);
         return true;
+    }
+
+    function handleSearch(value) {
+        setSearchTerm(value);
     }
 
     return (
@@ -188,7 +195,9 @@ export default function Products() {
 
                 <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex items-baseline justify-between border-b border-gray-200 pt-8 pb-6">
-                        <h1 className="text-4xl font-bold tracking-tight text-gray-900"> Search Your Favourite Products here </h1>
+
+                        <Search />
+
 
                         <div className="flex items-center">
                             <Menu as="div" className="relative inline-block text-left mx-4">

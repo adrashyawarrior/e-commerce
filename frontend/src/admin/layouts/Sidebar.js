@@ -9,9 +9,9 @@ const Sidebar = () => {
                 <div className="overflow-y-auto py-4 px-3 h-screen bg-gray-200 dark:bg-gray-800">
                     <ul className="space-y-2">
                         <li className='pb-8 px-4'>
-                            <a href="/dashboard" className="flex items-center">
+                            <Link to="/dashboard" className="flex items-center">
                                 <img src={LOGO} className="mr-3 h-16 sm:h-16" alt="ONDC Logo" />
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <Link to="/dashboard" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">

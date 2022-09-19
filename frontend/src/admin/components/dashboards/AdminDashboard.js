@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const AdminDashboard = () => {
     return (
@@ -89,7 +90,7 @@ const AdminDashboard = () => {
                             <div id="accordion-flush-body-1" className="" aria-labelledby="accordion-flush-heading-1">
                                 <div className="py-5 font-light border-b border-gray-200 dark:border-gray-700">
                                     <p className="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
-                                    <p className="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" className="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
+                                    <p className="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <Link to="/docs/getting-started/introduction/" className="text-blue-600 dark:text-blue-500 hover:underline">get started</Link> and start developing websites even faster with components on top of Tailwind CSS.</p>
                                 </div>
                             </div>
                             <h2 id="accordion-flush-heading-2">
@@ -101,7 +102,7 @@ const AdminDashboard = () => {
                             <div id="accordion-flush-body-2" className="hidden" aria-labelledby="accordion-flush-heading-2">
                                 <div className="py-5 font-light border-b border-gray-200 dark:border-gray-700">
                                     <p className="mb-2 text-gray-500 dark:text-gray-400">Flowbite is first conceptualized and designed using the Figma software so everything you see in the library has a design equivalent in our Figma file.</p>
-                                    <p className="text-gray-500 dark:text-gray-400">Check out the <a href="https://flowbite.com/figma/" className="text-blue-600 dark:text-blue-500 hover:underline">Figma design system</a> based on the utility classes from Tailwind CSS and components from Flowbite.</p>
+                                    <p className="text-gray-500 dark:text-gray-400">Check out the <Link to="https://flowbite.com/figma/" className="text-blue-600 dark:text-blue-500 hover:underline">Figma design system</Link> based on the utility classes from Tailwind CSS and components from Flowbite.</p>
                                 </div>
                             </div>
                             <h2 id="accordion-flush-heading-3">
@@ -116,8 +117,8 @@ const AdminDashboard = () => {
                                     <p className="mb-2 text-gray-500 dark:text-gray-400">However, we actually recommend using both Flowbite, Flowbite Pro, and even Tailwind UI as there is no technical reason stopping you from using the best of two worlds.</p>
                                     <p className="mb-2 text-gray-500 dark:text-gray-400">Learn more about these technologies:</p>
                                     <ul className="pl-5 list-disc text-gray-500 dark:text-gray-400">
-                                        <li><a href="https://flowbite.com/pro/" className="text-blue-600 dark:text-blue-500 hover:underline">Flowbite Pro</a></li>
-                                        <li><a href="https://tailwindui.com/" rel="nofollow" className="text-blue-600 dark:text-blue-500 hover:underline">Tailwind UI</a></li>
+                                        <li><Link to="https://flowbite.com/pro/" className="text-blue-600 dark:text-blue-500 hover:underline">Flowbite Pro</Link></li>
+                                        <li><Link to="https://tailwindui.com/" rel="nofollow" className="text-blue-600 dark:text-blue-500 hover:underline">Tailwind UI</Link></li>
                                     </ul>
                                 </div>
                             </div>

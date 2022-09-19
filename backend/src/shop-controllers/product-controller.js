@@ -8,27 +8,38 @@ async function index(req, res) {
         const currentPage = req.query.page || 1;
         const perPage = req.query.perPage || 10;
         const skip = (currentPage - 1) * perPage;
-       
+
         const categoryIds = req.query.categories ? req.query.categories.split(",") : [];
+        const searchTerm = req.query.search ? req.query.search : null;
 
         let categoryFilter = {};
         if (categoryIds.length > 0) {
             categoryFilter = { category: { $in: categoryIds } };
         }
 
-        const total = await Product.find(categoryFilter).countDocuments();
+        let searchFilter = {};
+        if (searchTerm) {
+            searchFilter = { name: { $regex: searchTerm, $options: 'i' } };
+        }
 
-        const products = await Product.find(categoryFilter)
+        const filters = {
+            ...categoryFilter,
+            ...searchFilter
+        };
+
+        const total = await Product.find(filters).countDocuments();
+
+        const products = await Product.find(filters)
             .populate('category', 'name')
             .sort({ [sortBy]: sortDirection }).skip(skip).limit(perPage);
-            
+
         res.send({
             products: products,
             total: total,
             currentPage: currentPage,
             perPage: perPage
         });
-        
+
     } catch (error) {
         res.send(error);
     }
